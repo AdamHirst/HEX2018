@@ -8,6 +8,7 @@ module.exports = (db) => {
           longitude: communityDetails.longitude,
           latitude: communityDetails.latitude
         },
+        description: communityDetails.description,
         image: communityDetails.image
       })
       newCommunity.save(err => {
