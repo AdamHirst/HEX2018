@@ -2,6 +2,10 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 module.exports = new require('mongoose').Schema({
+  orderNumber: {
+    type: Number
+    required: true
+  },
   status: {
     type: Schema.ObjectId,
     ref: "Status",
