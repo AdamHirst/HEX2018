@@ -23,15 +23,5 @@ module.exports = new require('mongoose').Schema({
   image: {
     type: String,
     require:true
-  },
-  people: [{
-    type: Schema.ObjectId,
-    ref: "Person",
-    required: false
-  }],
-  products: [{
-    type: Schema.ObjectId,
-    ref: "Product",
-    required: false
-  }]
+  }
 });
