@@ -108,6 +108,16 @@ module.exports = (app, passport, db) => {
     })
   });
 
+  app.get('/people/add', auth, (req, res) => {
+    community.getAll((err, communities) => {
+      res.render('people/add', {
+        user: req.user,
+        error: req.flash('error'),
+        'communities': communities
+      });
+    })
+  });
+
   app.post('/product/search', (req, res) => {
     product.search(req.body.searchTerm, (err,results) => {
       if(err) { res.send(err); return }
