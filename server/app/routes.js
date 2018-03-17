@@ -4,6 +4,15 @@ module.exports = (app, passport, db) => {
   const product   = require('./product.js')(db);
   const user      = require('./user.js')(db);
   const community = require('./community.js')(db);
+  const basket    = require('./basket.js')(db);
+
+  function auth(req, res, next) {
+    if (!req.user) {
+      next();
+    } else {
+      res.redirect('/');
+    }
+  }
 
   // Index root
   app.get('/', (req,res) => {
@@ -87,7 +96,11 @@ module.exports = (app, passport, db) => {
     } else {
       res.redirect('/');
     }
-  })
+  });
+
+  app.get('/product/add', auth, (req, res) => {
+    res.render('product/add', { user: req.user, error: req.flash('error') });
+  });
 
   app.post('/product/search', (req, res) => {
     product.search(req.body.searchTerm, (err,results) => {
@@ -140,5 +153,9 @@ module.exports = (app, passport, db) => {
          })
       })
     })
+  })
+
+  app.post('/basket/add', (req, res) => {
+    //basket.add(req.user)
   })
 }

@@ -11,7 +11,8 @@ module.exports = db => {
       let newProduct = new db.model.Product({
         name: productDetails.name,
         description: productDetails.description,
-        price: productDetails.price
+        price: productDetails.price,
+        image: productDetails.image
       });
       newProduct.save(err => {
         if(err){ cb(err); return }
