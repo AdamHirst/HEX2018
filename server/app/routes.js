@@ -1,10 +1,10 @@
-module.exports = (app, passport, db) => {
+module.exports = (app, passport, db, twilio) => {
 
   const people    = require('./people.js')(db);
   const product   = require('./product.js')(db);
   const user      = require('./user.js')(db);
   const community = require('./community.js')(db);
-  const basket    = require('./basket.js')(db);
+  const basket    = require('./basket.js')(db, twilio);
 
   function auth(req, res, next) {
     if (req.user) {

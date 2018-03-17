@@ -27,13 +27,15 @@ module.exports = (db, twilio) => {
           let newID = user.email + Date.now() + current.product.name;
           let salt = bcrypt.genSaltSync(5);
           newID = bcrypt.hashSync(newID, salt);
-          orders.push({
+          let temp = {
             orderNumber: newID,
             quantity: current.quantity,
             product: current.product,
             customer: user._id,
             status: "Processing"
-          })
+          }
+          twilio.sendProductOrderNotice(temp);
+          orders.push(temp);
         };
 
         try {
