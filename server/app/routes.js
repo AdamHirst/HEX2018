@@ -1,8 +1,21 @@
 module.exports = (app, passport, db) => {
 
+  const people  = require('./people.js')(db);
+  const product = require('./product.js')(db);
+
   // Index root
   app.get('/', (req,res) => {
-    res.render("index",{ user: req.user })
+    people.getFeatured((err, featuredPeople) => {
+      if(err) { res.send(err); return }
+      product.getFeatured((err,featuredProduct) => {
+        if(err) { res.send(err); return }
+        res.render("index",{
+          user: req.user,
+          people: featuredPeople,
+          products: featuredProduct
+        })
+      })
+    })
   });
 
   // Login Route
