@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 module.exports = new require('mongoose').Schema({
   orderNumber: {
-    type: Number
+    type: Number,
     required: true
   },
   status: {
