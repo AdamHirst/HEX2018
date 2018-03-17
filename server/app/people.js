@@ -10,6 +10,17 @@ module.exports = db => {
             if(err) return err;
             cb(null, people);
           })
+      },
+      create: (personDetails, cb) => {
+        let newPerson = new db.model.Person({
+          name: personDetails.name,
+          story: personDetails.story,
+          community: personDetails.community
+        })
+        newPerson.save(err => {
+          if(err){ cb(err); return }
+          cb(null);
+        })
       }
   }
 }

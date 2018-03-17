@@ -6,10 +6,10 @@ module.exports = new require('mongoose').Schema({
     type: String,
     required: true
   },
-  update: [{
+  story: {
     type: String,
     required: true
-  }],
+  },
   featured: {
     type: Boolean,
     required: false
