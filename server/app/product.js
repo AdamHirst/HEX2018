@@ -12,7 +12,8 @@ module.exports = db => {
         name: productDetails.name,
         description: productDetails.description,
         price: productDetails.price,
-        image: productDetails.image
+        image: productDetails.image,
+        community: productDetails.community
       });
       newProduct.save(err => {
         if(err){ cb(err); return }
