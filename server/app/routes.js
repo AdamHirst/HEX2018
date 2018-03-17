@@ -5,6 +5,14 @@ module.exports = (app, passport, db) => {
   const user      = require('./user.js')(db);
   const community = require('./community.js')(db);
 
+  function auth(req, res, next) {
+    if (!req.user) {
+      next();
+    } else {
+      res.redirect('/');
+    }
+  }
+
   // Index root
   app.get('/', (req,res) => {
     people.getFeatured((err, featuredPeople) => {
@@ -103,7 +111,11 @@ module.exports = (app, passport, db) => {
     } else {
       res.redirect('/');
     }
-  })
+  });
+
+  app.get('/product/add', auth, (req, res) => {
+    res.render('product/add', { user: req.user, error: req.flash('error') });
+  });
 
   app.post('/product/search', (req, res) => {
     product.search(req.body.searchTerm, (err,results) => {

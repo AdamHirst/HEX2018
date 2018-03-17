@@ -1,9 +1,11 @@
-<%- include('head', { title: "Craft for a Cause" }); %>
-<%- include('nav', { user: user }); %>
+<%- include('../head', { title: "Craft for a Cause" }); %>
+<%- include('../nav', { user: user }); %>
 
+<div class="container">
 <div class="card" style="width: 100%;">
   <form action="/create/product" method="post">
     <div class="card-content">
+      <div class="card-title">Add a product</div>
       <% if (error != "") { %>
       <div class="card red white-text" style="margin-bottom: 20px;">
         <div class="card-content">
@@ -21,8 +23,15 @@
         <input id="description" name="description" type="text" class="validate" required>
         <label for="description" style="left: 0;">Description</label>
       </div>
-
-      <!-- -->
+      <div class="input-field col s6">
+        <input id="image" name="image" type="text" class="validate" required>
+        <label for="image" style="left: 0;">Image URL</label>
+      </div>
+      <div class="input-field col s6">
+        <input id="price" name="price" type="text" class="validate" required>
+        <label for="price" style="left: 0;">Price (€)</label>
+      </div>
+      <!-- End form -->
 
     </div>
     <div class="card-action">
@@ -30,5 +39,6 @@
     </div>
   </form>
 </div>
+</div>
 
-<%- include('foot'); %>
+<%- include('../foot'); %>
