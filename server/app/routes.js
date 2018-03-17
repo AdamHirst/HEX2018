@@ -4,6 +4,7 @@ module.exports = (app, passport, db) => {
   const product   = require('./product.js')(db);
   const user      = require('./user.js')(db);
   const community = require('./community.js')(db);
+  const basket    = require('./basket.js')(db);
 
   // Index root
   app.get('/', (req,res) => {
@@ -140,5 +141,9 @@ module.exports = (app, passport, db) => {
          })
       })
     })
+  })
+
+  app.post('/basket/add', (req, res) => {
+    //basket.add(req.user)
   })
 }
