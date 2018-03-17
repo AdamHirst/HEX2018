@@ -32,5 +32,9 @@ module.exports = new require('mongoose').Schema({
       type: Number,
       required: true
     }
-  }]
+  }],
+  basketTotal: {
+    type: Number,
+    required: true
+  }
 });

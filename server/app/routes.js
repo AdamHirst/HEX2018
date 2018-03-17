@@ -14,20 +14,8 @@ module.exports = (app, passport, db, twilio) => {
     }
   }
 
-  function populateBasket(req, res, next) {
-    if (req.user) {
-      user.getBasketTotal(req.user, (err, user) => {
-        if(err){ res.send(err); return }
-        req.user = user;
-        next();
-      });
-    } else {
-      next();
-    }
-  }
-
   // Index root
-  app.get('/', populateBasket, (req,res) => {
+  app.get('/', (req,res) => {
     people.getFeatured((err, featuredPeople) => {
       if(err) { res.send(err); return }
       product.getFeatured((err,featuredProduct) => {
@@ -48,13 +36,13 @@ module.exports = (app, passport, db, twilio) => {
     })
   })
 
-  app.get('/browse', populateBasket, (req,res) => {
+  app.get('/browse', (req,res) => {
     res.render('browse', {
       'user': req.user,
     })
   })
 
-  app.get('/about', populateBasket, (req,res) => {
+  app.get('/about', (req,res) => {
     community.getAll((err, communities) => {
       if(err){ res.send(err); return }
       res.render('about', {
@@ -155,7 +143,7 @@ module.exports = (app, passport, db, twilio) => {
     })
   })
 
-  app.get('/community/:id', populateBasket, (req, res) => {
+  app.get('/community/:id', (req, res) => {
     community.get(req.params.id, (err, target) => {
       if(err){ res.send(err); return }
       res.render('community',{
@@ -165,7 +153,7 @@ module.exports = (app, passport, db, twilio) => {
     })
   })
 
-  app.get('/person/:id', populateBasket, (req, res) => {
+  app.get('/person/:id', (req, res) => {
     person.get(req.params.id, (err, target) => {
       if(err){ res.send(err); return }
       res.render('person',{
@@ -175,7 +163,7 @@ module.exports = (app, passport, db, twilio) => {
     })
   })
 
-  app.get('/product/:id', populateBasket, (req, res) => {
+  app.get('/product/:id', (req, res) => {
     product.get(req.params.id, (err, target) => {
       if(err){ res.send(err); return }
       res.render('product/view',{
