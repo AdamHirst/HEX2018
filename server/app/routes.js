@@ -50,7 +50,7 @@ module.exports = (app, passport, db) => {
 
   app.get('/browse', populateBasket, (req,res) => {
     res.render('browse', {
-      'user': user,
+      'user': req.user,
     })
   })
 
@@ -58,7 +58,7 @@ module.exports = (app, passport, db) => {
     community.getAll((err, communities) => {
       if(err){ res.send(err); return }
       res.render('about', {
-        'user': user,
+        'user': req.user,
         'communities': communities
       })
     })
@@ -159,7 +159,7 @@ module.exports = (app, passport, db) => {
     community.get(req.params.id, (err, target) => {
       if(err){ res.send(err); return }
       res.render('community',{
-        'user': user,
+        'user': req.user,
         community: target
        })
     })
