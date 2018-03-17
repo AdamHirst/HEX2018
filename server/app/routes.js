@@ -1,8 +1,9 @@
 module.exports = (app, passport, db) => {
 
-  const people  = require('./people.js')(db);
-  const product = require('./product.js')(db);
-  const user    = require('./user.js')(db);
+  const people    = require('./people.js')(db);
+  const product   = require('./product.js')(db);
+  const user      = require('./user.js')(db);
+  const community = require('./community.js')(db);
 
   // Index root
   app.get('/', (req,res) => {
@@ -38,6 +39,43 @@ module.exports = (app, passport, db) => {
     })
   })
 
+  app.get('/browse', (req,res) => {
+    if(!user.req){
+      res.render('browse', {
+        user: req.user,
+      })
+    } else {
+      user.getBasketTotal(req.user, (err, total) => {
+        if(err){ res.send(err); return }
+        req.user.basketTotal = total;
+        res.render('browse', {
+          user: req.user,
+        })
+      })
+    }
+  })
+
+  app.post('/create/community', (req, res) => {
+    community.create(req.body, err => {
+      if(err) { res.send(err); return; }
+      res.redirect('/')
+    })
+  })
+
+  app.post('/create/product', (req, res) => {
+    product.create(req.body, err => {
+      if(err) { res.send(err); return; }
+      res.redirect('/');
+    })
+  })
+
+  app.post('/create/person', (req, res) => {
+    people.create(req.body, err => {
+      if(err){ res.send(err); return }
+      res.redirect('/')
+    })
+  })
+
   // Login Route
   app.get('/login', (req,res) => {
     if(req.user){
@@ -57,5 +95,13 @@ module.exports = (app, passport, db) => {
   app.get('/logout', (req,res) => {
     req.logout();
     res.redirect('/')
+  })
+
+  app.get('/register', (req,res) => {
+    if(!req.user){
+      res.render('register', {});
+    } else {
+      res.redirect('/');
+    }
   })
 }

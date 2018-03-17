@@ -7,8 +7,20 @@
 
 <!-- Call to action -->
 <div class="teal lighten-2 center-align" style="margin-top: -33px;">
-  <h5 class="white-text" style="padding-top: 30px;font-family: 'Bad Script', cursive;">Tackling poverty through sustainable crafting</h5>
+  <h5 class="white-text" style="padding-top: 30px;font-family: 'Bad Script', cursive;">Buy quality, bespoke crafts from community </h5>
   <p style="padding-bottom: 20px;"><a href="#" style="color: #f4dcb2;">Learn more</a></p>
+</div>
+
+<div class="section" style="margin-top:-13px;">
+  <div class="container">
+    <h4>Featured products</h4>
+
+    <div class="row">
+      <% for (var i = 0; i < 3; i++) { %>
+      <%- include('card', { image: "img/animals.gif", title: "Knitted animals", description: "Knitted animals from Zimbabwe", action: "Find out more" }) %>
+      <% } %>
+    </div>
+  </div>
 </div>
 
 <%- include('foot'); %>
