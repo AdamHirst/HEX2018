@@ -179,6 +179,13 @@ module.exports = (app, passport, db) => {
   })
 
   app.post('/basket/add', auth, (req, res) => {
-    //basket.add(req.user)
+    basket.add(req.user, req.body.productId, req.body.quantity, err => {
+      if(err) { res.send(err); return; };
+      res.send({
+        message: "Added"
+      })
+    })
   })
+
+  //app.post('/basket/complete')
 }
