@@ -32,12 +32,12 @@
         <label for="price" style="left: 0;">Price (€)</label>
       </div>
       <div class="input-field col s12">
-        <select>
+        <select id="community" name="community">
           <% communities.forEach(function(community) { %>
             <option value="<%- community._id %>"><%= community.name %></option>
           <%  }); %>
         </select>
-        <label>Community</label>
+        <label for="community" style="left: 0;">Community</label>
       </div>
       <!-- End form -->
 
@@ -50,4 +50,9 @@
 </div>
 
 <%- include('../page_scripts'); %>
+<script>
+$(document).ready(function(){
+  $('select').formSelect();
+});
+</script>
 <%- include('../foot'); %>

@@ -27,7 +27,9 @@ module.exports = db => {
       })
     },
     get: (id, cb) => {
-      db.model.Product.findOne({ _id: id}, (err, target) => {
+      db.model.Product.findOne({ _id: id})
+                      .populate('community')
+                      .exec((err, target) => {
         if(err){ cb(err); return }
         cb(null, target)
       })

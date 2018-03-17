@@ -18,7 +18,7 @@
 
     <div class="row">
       <% for (var i = 0; i < products.length; i++) { %>
-      <%- include('card', { image: products[i].image, title: products[i].title, description: products[i].description, action: "€" + products[i].price + " - Find out more" }) %>
+      <%- include('card', { image: products[i].image, title: products[i].title, description: products[i].description, price: products[i].price }) %>
       <% } %>
     </div>
   </div>

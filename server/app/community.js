@@ -25,7 +25,16 @@ module.exports = (db) => {
     get: (id, cb) => {
       db.model.Community.findOne({ _id: id}, (err, target) => {
         if(err){ cb(err); return }
-        cb(null, target)
+        db.model.Person.find({ community: id }, (err, people) => {
+          if(err){ cb(err); return }
+          target.people = people;
+          db.model.Product.find({ community: id }, (err, products) => {
+            if(err){ cb(err); return }
+            target.products = products;
+
+            cb(null, target)
+          });
+        });
       })
     },
     getAll: (cb) => {
