@@ -21,5 +21,10 @@ module.exports = new require('mongoose').Schema({
   price: {
     type: Number,
     required: true
+  },
+  community: {
+    type: Schema.ObjectId,
+    ref: "Community",
+    required: true
   }
 });

@@ -1,0 +1,48 @@
+<%- include('../head', { title: "Add Community - Craft for a Cause" }); %>
+<%- include('../nav', { user: user }); %>
+
+<div class="container">
+<div class="card" style="width: 100%;">
+  <form action="/create/community" method="post">
+    <div class="card-content">
+      <div class="card-title">Add a community</div>
+      <% if (error != "") { %>
+      <div class="card red white-text" style="margin-bottom: 20px;">
+        <div class="card-content">
+          <%= error %>
+        </div>
+      </div>
+      <% } %>
+
+      <!-- Form -->
+      <div class="input-field col s6">
+        <input id="name" name="name" type="text" class="validate" required>
+        <label for="name" style="left: 0;">Title</label>
+      </div>
+      <div class="input-field col s6">
+        <input id="contactNumber" name="contactNumber" type="text" class="validate" required>
+        <label for="contactNumber" style="left: 0;">Contact number</label>
+      </div>
+      <div class="input-field col s6">
+        <input id="latitude" name="latitude" type="number" class="validate" required>
+        <label for="latitude" style="left: 0;">Latitude</label>
+      </div>
+      <div class="input-field col s6">
+        <input id="longitude" name="longitude" type="number" class="validate" required>
+        <label for="longitude" style="left: 0;">Longitude</label>
+      </div>
+      <div class="input-field col s6">
+        <input id="image" name="image" type="text" class="validate" required>
+        <label for="image" style="left: 0;">Image URL</label>
+      </div>
+      <!-- End form -->
+
+    </div>
+    <div class="card-action">
+      <button class="btn teal waves-effect waves-light">Submit</button>
+    </div>
+  </form>
+</div>
+</div>
+
+<%- include('../foot'); %>
