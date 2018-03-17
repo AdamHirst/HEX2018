@@ -1,8 +1,9 @@
 module.exports = (app, passport, db) => {
 
-  const people  = require('./people.js')(db);
-  const product = require('./product.js')(db);
-  const user    = require('./user.js')(db);
+  const people    = require('./people.js')(db);
+  const product   = require('./product.js')(db);
+  const user      = require('./user.js')(db);
+  const community = require('./community.js')(db);
 
   // Index root
   app.get('/', (req,res) => {
@@ -35,6 +36,13 @@ module.exports = (app, passport, db) => {
     user.create(req.body, err => {
       if(err) { res.send(err); return }
       res.redirect('/');
+    })
+  })
+
+  app.post('/create/community', (req, res) => {
+    community.create(req.body, err => {
+      if(err) { res.send(err); return; }
+      res.redirect('/')
     })
   })
 
