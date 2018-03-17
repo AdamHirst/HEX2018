@@ -16,7 +16,7 @@
           <li><a href="/login">Patron Login</a></li>
           <li><a href="/register">Register</a></li>
         <% } else { %>
-          <li class="link"><a href="/logout">Logout</a></li>
+          <li class="link"><a href="/logout">Logout (<%= user.email %>)</a></li>
           <li class="link"><a href="#">Basket <% if (user.basketTotal) { %>(€<%= user.basketTotal %>) <% } %></a></li>
         <% } %>
       </ul>

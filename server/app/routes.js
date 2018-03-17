@@ -18,6 +18,7 @@ module.exports = (app, passport, db) => {
     if (req.user) {
       user.getBasketTotal(req.user, (err, user) => {
         if(err){ res.send(err); return }
+        req.user = user;
         next();
       });
     } else {
@@ -32,7 +33,7 @@ module.exports = (app, passport, db) => {
       product.getFeatured((err,featuredProduct) => {
         if(err) { res.send(err); return }
         res.render("home",{
-          'user': user,
+          'user': req.user,
           people: featuredPeople,
           products: featuredProduct,
         });
@@ -49,7 +50,7 @@ module.exports = (app, passport, db) => {
 
   app.get('/browse', populateBasket, (req,res) => {
     res.render('browse', {
-      'user': user,
+      'user': req.user,
     })
   })
 
@@ -57,7 +58,7 @@ module.exports = (app, passport, db) => {
     community.getAll((err, communities) => {
       if(err){ res.send(err); return }
       res.render('about', {
-        'user': user,
+        'user': req.user,
         'communities': communities
       })
     })
@@ -158,7 +159,7 @@ module.exports = (app, passport, db) => {
     community.get(req.params.id, (err, target) => {
       if(err){ res.send(err); return }
       res.render('community',{
-        'user': user,
+        'user': req.user,
         community: target
        })
     })
@@ -168,18 +169,17 @@ module.exports = (app, passport, db) => {
     person.get(req.params.id, (err, target) => {
       if(err){ res.send(err); return }
       res.render('person',{
-        'user': user,
+        'user': req.user,
         person: target
        })
     })
   })
 
   app.get('/product/:id', populateBasket, (req, res) => {
-    console.log(req.params.id);
     product.get(req.params.id, (err, target) => {
       if(err){ res.send(err); return }
       res.render('product/view',{
-        'user': user,
+        'user': req.user,
         product: target
        })
     })
