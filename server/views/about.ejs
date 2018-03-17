@@ -15,14 +15,14 @@
                     <p>A description of point 1.</p>
                 </div>
                 <div class="col s4 center-align">
-                    <h5>Point 1</h5>
+                    <h5>Point 2</h5>
                     <i class="material-icons large">face</i>
-                    <p>A description of point 1.</p>
+                    <p>A description of point 2.</p>
                 </div>
                 <div class="col s4 center-align">
-                    <h5>Point 1</h5>
+                    <h5>Point 3</h5>
                     <i class="material-icons large">face</i>
-                    <p>A description of point 1.</p>
+                    <p>A description of point 3.</p>
                 </div>
             </div>
             <div class="divider"></div>
@@ -41,19 +41,67 @@
         width: 100%;
         height: 600px;
     }
+    .marker {
+        display: block;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        padding: 0;
+        background-size: cover;
+    }
 </style>
 <div id="community-map"></div>
 <!-- mapbox script -->
 <script>
 $(document).ready(() => {
     mapboxgl.accessToken = 'pk.eyJ1Ijoic2Ftd2FsbHMiLCJhIjoiY2pldnJjMXY5MGp3djJ3bDdvb3NjMWwwMiJ9.WECcDGDpHCMY2SLAConozA';
+
+    var geojson_markers = {
+        "type": "FeatureCollection",
+        "features": [
+            <% for (i = 0; i < communities.length; i++) { %>
+            {
+                "type": "Feature",
+                "properties": {
+                    "image": "<%= communities[i].image %>",
+                    "iconSize": [60, 60],
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        <%= communities[i].location.latitude %>, <%= communities[i].location.longitude %>
+                    ]
+                }
+            },
+            <% } %>
+        ]
+    };
+
     var map = new mapboxgl.Map({
-        container: 'community-map', // container id
-        style: 'mapbox://styles/samwalls/cjevrfq6i1ovc2rmuh4c3j5fm', //hosted style id
+        container: "community-map", // container id
+        style: "mapbox://styles/samwalls/cjevrfq6i1ovc2rmuh4c3j5fm", //hosted style id
         center: [-77.38, 39], // starting position
         zoom: 3 // starting zoom
     });
+
+    geojson_markers.features.forEach((marker) => {
+        // create a DOM element for the marker
+        var el = document.createElement('div');
+        el.className = 'marker';
+        // TODO - if the image is not present, then what?
+        var img = marker.properties.image;
+        el.style.backgroundImage = `url(${img}` + marker.properties.iconSize.join('/') + '/)';
+        el.style.width = marker.properties.iconSize[0] + 'px';
+        el.style.height = marker.properties.iconSize[1] + 'px';
+
+        // add marker to map
+        new mapboxgl.Marker(el)
+            .setLngLat(marker.geometry.coordinates)
+            .addTo(map);
+    });
 });
+
+
 </script>
 
 <%- include('foot'); %>
