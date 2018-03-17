@@ -6,6 +6,17 @@ module.exports = db => {
             if(err) return err;
             cb(null, products);
           })
+      },
+      create: (productDetails, cb) => {
+        let newProduct = new db.model.Product({
+          name: productDetails.name,
+          description: productDetails.description,
+          price: productDetails.price
+        });
+        newProduct.save(err => {
+          if(err){ cb(err); return }
+          cb(null);
+        })
       }
   }
 }
