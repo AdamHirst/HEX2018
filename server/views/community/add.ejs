@@ -32,6 +32,10 @@
         <label for="longitude" style="left: 0;">Longitude</label>
       </div>
       <div class="input-field col s6">
+        <input id="description" name="description" type="text" class="validate" required>
+        <label for="description" style="left: 0;">Description</label>
+      </div>
+      <div class="input-field col s6">
         <input id="image" name="image" type="text" class="validate" required>
         <label for="image" style="left: 0;">Image URL</label>
       </div>
@@ -45,5 +49,5 @@
 </div>
 </div>
 
-<%- include('page_scripts'); %>
+<%- include('../page_scripts'); %>
 <%- include('../foot'); %>

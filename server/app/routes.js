@@ -7,7 +7,7 @@ module.exports = (app, passport, db) => {
   const basket    = require('./basket.js')(db);
 
   function auth(req, res, next) {
-    if (!req.user) {
+    if (req.user) {
       next();
     } else {
       res.redirect('/');
@@ -116,6 +116,13 @@ module.exports = (app, passport, db) => {
         'communities': communities
       });
     })
+  });
+
+  app.get('/community/add', auth, (req, res) => {
+    res.render('community/add', {
+      user: req.user,
+      error: req.flash('error'),
+    });
   });
 
   app.post('/product/search', (req, res) => {
