@@ -7,6 +7,5 @@ module.exports = {
   Product: mongoose.model("Product", require('./Product.js')),
   Order: mongoose.model("Order", require('./Order.js')),
   Status: mongoose.model("Status", require('./Status.js')),
-  Conversation: mongoose.model("Conversations", require('./Conversations.js')),
   Message: mongoose.model("Message", require('./Message.js'))
 };

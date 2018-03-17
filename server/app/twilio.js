@@ -45,18 +45,14 @@ module.exports = (app, db) => {
         // Create a new Conversation
         var newMessage = new db.model.Message({
           messageSID: message.sid,
-          to: message.To,
-          from: message.From,
+          to: message.to,
+          from: message.from,
           orderNumber: orderNumber,
           timestamp: message.DateCreated
         });
 
-        var conversation = new db.model.Conversation({
-          messages: [newMessage]
-        });
-
         newMessage.save();
-        conversation.save();
+        
       });
 
     },
