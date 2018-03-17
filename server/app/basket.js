@@ -1,13 +1,14 @@
 const bcypt = require('bcrypt')
 
-module.exports = (db) => {
+module.exports = (db, twilio) => {
   return {
-    add: (user, productId, quantity) => {
+    add: (user, productId, quantity, cb) => {
       db.model.User.update({ _id: user._id },{ $push: { basket: {
         product: productId,
         'quantity': quantity
       } } }, err => {
-        cb(err)
+        if(err) { cb(err); return }
+        cb()
       })
     },
     complete: (user, cb) => {
