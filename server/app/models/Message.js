@@ -16,8 +16,8 @@ module.exports = new require('mongoose').Schema({
   },
   orderNumber: {
     type: String
-  }
-  timestamp{
+  },
+  timestamp: {
     type: Date
   }
 })
