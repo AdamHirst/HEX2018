@@ -15,7 +15,8 @@ module.exports = db => {
       let newPerson = new db.model.Person({
         name: personDetails.name,
         story: personDetails.story,
-        community: personDetails.community
+        community: personDetails.community,
+        image: personDetails.image
       })
       newPerson.save(err => {
         if(err){ cb(err); return }

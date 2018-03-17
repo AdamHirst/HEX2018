@@ -7,7 +7,8 @@ module.exports = (db) => {
         location: {
           longitude: communityDetails.longitude,
           latitude: communityDetails.latitude
-        }
+        },
+        image: communityDetails.image
       })
       newCommunity.save(err => {
         if(err){ cb(err); return }
