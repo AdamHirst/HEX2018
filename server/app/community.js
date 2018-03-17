@@ -23,7 +23,7 @@ module.exports = (db) => {
       })
     },
     get: (id, cb) => {
-      db.model.Community.findOne({ _id, id}, (err, target) => {
+      db.model.Community.findOne({ _id: id}, (err, target) => {
         if(err){ cb(err); return }
         cb(null, target)
       })

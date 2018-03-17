@@ -31,8 +31,5 @@ module.exports = new require('mongoose').Schema({
     ],
     required: true
   },
-  timeStamp: {
-    type: String,
-    require: true
-  }
+  timeStamp: { type: Date, default: Date.now },
 })

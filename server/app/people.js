@@ -24,7 +24,7 @@ module.exports = db => {
       })
     },
     get: (id, cb) => {
-      db.model.Person.findOne({ _id, id}, (err, target) => {
+      db.model.Person.findOne({ _id: id}, (err, target) => {
         if(err){ cb(err); return }
         cb(null, target)
       })
