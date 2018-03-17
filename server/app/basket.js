@@ -3,7 +3,7 @@ const bcypt = require('bcrypt')
 module.exports = (db) => {
   return {
     add: (user, productId, quantity) => {
-      db.User.update({ _id: user._id },{ $push: { basket: {
+      db.model.User.update({ _id: user._id },{ $push: { basket: {
         product: productId,
         'quantity': quantity
       } } }, err => {
@@ -11,7 +11,7 @@ module.exports = (db) => {
       })
     },
     complete: (user, cb) => {
-      db.User.findOne({ _id: user._id })
+      db.model.User.findOne({ _id: user._id })
       .populate({
         path: "basket",
         populate: {
@@ -36,7 +36,7 @@ module.exports = (db) => {
         };
 
         try {
-          db.Order.insertMany(orders);
+          db.model.Order.insertMany(orders);
           cb(null)
         } catch(e) {
           cb(e)
