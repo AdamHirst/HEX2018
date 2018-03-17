@@ -11,7 +11,7 @@
     <div class="card-action" style="color: #000; padding-bottom: 12px; padding-top: 10px; margin: 0; padding-right: 12px; padding-left: 12px;">
       <p style="display: inline; line-height: 36px;">€<%= price %></p>
       <form action="/basket/add" method="post" style="display: inline">
-        <input type="hidden" name="id" value="<%- id %>" />
+        <input type="hidden" name="productId" value="<%- id %>" />
         <input type="hidden" name="quantity" value="1" />
         <button class="btn teal waves-effect waves-light right">Add to basket</button>
       </form>

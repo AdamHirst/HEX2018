@@ -30,12 +30,14 @@ module.exports = (db) => {
         }
       }).exec((err, user) => {
         if(err){ cb(err); return }
+        console.log(user);
         let basketTotal = 0;
         if(user.basket){
           user.basket.forEach(current => {
             basketTotal += current.quantity * current.product.price;
           })
-          user.total = basketTotal
+          user.basketTotal = basketTotal;
+          console.log(basketTotal);
         }
         cb(null, user);
       })

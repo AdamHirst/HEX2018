@@ -18,6 +18,7 @@ module.exports = (app, passport, db, twilio) => {
     if (req.user) {
       user.getBasketTotal(req.user, (err, user) => {
         if(err){ res.send(err); return }
+        console.log(user);
         req.user = user;
         next();
       });
