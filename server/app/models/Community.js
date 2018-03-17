@@ -6,6 +6,10 @@ module.exports = new require('mongoose').Schema({
     type: String,
     required: true
   },
+  contactNumber: {
+    type: Number,
+    required: true
+  },
   location: {
     latitude: {
       type: String,
