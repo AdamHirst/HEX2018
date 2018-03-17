@@ -3,7 +3,7 @@ module.exports = (db) => {
     create: (communityDetails, cb) => {
       let newCommunity = new db.model.Community({
         name: communityDetails.name,
-        contactNumber: communityDetails.number,
+        contactNumber: communityDetails.contactNumber,
         location: {
           longitude: communityDetails.longitude,
           latitude: communityDetails.latitude
