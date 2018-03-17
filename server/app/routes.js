@@ -2,6 +2,7 @@ module.exports = (app, passport, db) => {
 
   const people  = require('./people.js')(db);
   const product = require('./product.js')(db);
+  const user    = require('./user.js')(db);
 
   // Index root
   app.get('/', (req,res) => {
@@ -17,6 +18,13 @@ module.exports = (app, passport, db) => {
       })
     })
   });
+
+  app.post('/create/user', (req,res) => {
+    user.create(req.body, err => {
+      if(err) { res.send(err); return }
+      res.redirect('/');
+    })
+  })
 
   // Login Route
   app.get('/login', (req,res) => {
