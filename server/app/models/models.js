@@ -6,6 +6,5 @@ module.exports = {
   Person: mongoose.model("Person", require('./Person.js')), // Not a user, to tell a personal story
   Product: mongoose.model("Product", require('./Product.js')),
   Order: mongoose.model("Order", require('./Order.js')),
-  Status: mongoose.model("Status", require('./Status.js')),
   Message: mongoose.model("Message", require('./Message.js'))
 };
