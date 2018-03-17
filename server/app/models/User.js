@@ -19,6 +19,10 @@ module.exports = new require('mongoose').Schema({
     enum: ['Crafter','Patron'],
     required: true
   },
+  contact: {
+    type: "String",
+    required: true
+  },
   basket: [{
     product: {
       type: Schema.ObjectId,

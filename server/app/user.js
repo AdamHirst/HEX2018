@@ -5,8 +5,9 @@ module.exports = (db) => {
         let newUser = new db.model.User({
           name: userDetails.name,
           email: userDetails.email,
-          type: userDetails.password,
-          password: hash
+          type: "Patron",
+          password: hash,
+          contact: userDetails.contact
         });
 
         newUser.save(err => {
