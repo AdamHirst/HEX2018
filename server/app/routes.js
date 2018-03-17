@@ -46,6 +46,13 @@ module.exports = (app, passport, db) => {
     })
   })
 
+  app.post('/create/product', (req, res) => {
+    product.create(req.body, err => {
+      if(err) { res.send(err); return; }
+      res.redirect('/');
+    })
+  })
+
   // Login Route
   app.get('/login', (req,res) => {
     if(req.user){
@@ -65,5 +72,13 @@ module.exports = (app, passport, db) => {
   app.get('/logout', (req,res) => {
     req.logout();
     res.redirect('/')
+  })
+
+  app.get('/register', (req,res) => {
+    if(!req.user){
+      res.render('register', {});
+    } else {
+      res.redirect('/');
+    }
   })
 }
