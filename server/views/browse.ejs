@@ -1,0 +1,89 @@
+<%- include('head', { title: "Craft for a Cause" }); %>
+<%- include('nav', { user: user }); %>
+
+    <style type="text/css">
+    .tabs .indicator {
+        /* "teal accent-3" */
+        background-color: #1de9b6;
+    }
+    </style>
+
+    <div class="parallax-container">
+        <div class="parallax"><img src="img/ggol.gif"></div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 teal lighten-1">
+            <ul class="tabs teal lighten-1">
+                <li class="tab col s3 teal lighten-2"><a class="white-text" href="#browse_products">Products</a></li>
+                <li class="tab col s3 teal lighten-2"><a class="white-text" href="#browse_communities">Communities</a></li>
+            </ul>
+        </div>
+        <div id="browse_products" class="col s12">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12" >
+                        <h4>Find Products</h4>
+    
+                        <div class="input-field col s6 s12 teal-text">
+                            <i class="teal-text material-icons prefix">search</i>
+                            <input type="text" placeholder="search" id="autocomplete-input" class="autocomplete teal-text" >
+                        </div>
+
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie varius vehicula. Praesent at dignissim nunc. Aenean sit amet vehicula est. Duis quis tempor diam. In ac iaculis sem. Mauris interdum leo scelerisque erat pharetra facilisis. Morbi maximus lacinia eros. Cras volutpat mauris ac leo porta, eu venenatis nisl rhoncus. Quisque pulvinar finibus purus, sit amet faucibus mauris luctus sed. Integer cursus egestas sapien, ut varius eros vehicula non. Etiam pharetra blandit mi, eu rhoncus lectus imperdiet nec. Cras vehicula faucibus lectus, ac facilisis quam feugiat eget. Curabitur eget turpis commodo justo accumsan sollicitudin.
+
+                            Vestibulum eu cursus neque. Maecenas pharetra leo vitae mi varius commodo. Donec quis pharetra diam. Curabitur fringilla nisl a augue vehicula, a condimentum lorem condimentum. Etiam ultrices augue tortor, sed porttitor neque accumsan et. Duis eget faucibus nunc, in suscipit risus. Etiam tincidunt nunc ut lacus viverra, quis tristique turpis eleifend. Donec quis suscipit est. Nullam ac massa eget tellus imperdiet condimentum. Nullam tempus risus non maximus auctor. Mauris bibendum pharetra posuere. Vestibulum at justo id nibh molestie sollicitudin.
+                            
+                            Aliquam a risus tincidunt mi molestie laoreet feugiat eget lectus. Mauris a augue nibh. Duis est tortor, ultricies commodo lorem id, dictum congue orci. Vivamus fermentum eleifend sodales. Quisque nec risus ex. Sed bibendum orci in aliquam sagittis. Cras efficitur arcu ante, eget ornare magna luctus vitae. Aenean leo ex, lobortis sed metus at, maximus porta enim. Etiam viverra nisl nec consectetur aliquet. Etiam elementum nisi ut metus feugiat, eget finibus ex bibendum.
+                            
+                            Aenean posuere pulvinar turpis varius commodo. Aliquam dolor sem, facilisis eget tellus a, volutpat porta eros. Nulla velit metus, condimentum ut tortor id, tincidunt ornare enim. Maecenas a posuere dui. Sed eu viverra elit, at volutpat orci. Aenean id justo mi. Nam et nunc ac nulla posuere imperdiet. Pellentesque ac ullamcorper nisl. Quisque viverra lacus et odio varius tristique. Nullam imperdiet ornare lorem a maximus.
+                            
+                            Nulla facilisi. Nulla rhoncus, magna id sagittis lacinia, dolor eros tempor orci, at pharetra quam nibh ut diam. Proin purus lacus, fermentum eu semper at, gravida sed velit. Aenean commodo tristique risus, at tempus neque pellentesque at. Proin eu nibh id lectus placerat ultrices. Maecenas rhoncus ut dui sed blandit. Donec gravida tellus id egestas pulvinar. Aenean ultrices nisl nibh. Fusce bibendum eget metus et sagittis. Etiam aliquam ante ipsum, eget iaculis sem mattis in. In pellentesque, lectus laoreet accumsan varius, risus elit porttitor turpis, non ultrices leo quam nec sapien.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="browse_communities" class="col s12 container">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12" >
+                        <h4>Find Communities</h4>
+    
+                        <div class="input-field col s6 s12 teal-text">
+                            <i class="teal-text material-icons prefix">search</i>
+                            <input type="text" placeholder="search" id="autocomplete-input" class="autocomplete teal-text" >
+                        </div>
+
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie varius vehicula. Praesent at dignissim nunc. Aenean sit amet vehicula est. Duis quis tempor diam. In ac iaculis sem. Mauris interdum leo scelerisque erat pharetra facilisis. Morbi maximus lacinia eros. Cras volutpat mauris ac leo porta, eu venenatis nisl rhoncus. Quisque pulvinar finibus purus, sit amet faucibus mauris luctus sed. Integer cursus egestas sapien, ut varius eros vehicula non. Etiam pharetra blandit mi, eu rhoncus lectus imperdiet nec. Cras vehicula faucibus lectus, ac facilisis quam feugiat eget. Curabitur eget turpis commodo justo accumsan sollicitudin.
+
+                            Vestibulum eu cursus neque. Maecenas pharetra leo vitae mi varius commodo. Donec quis pharetra diam. Curabitur fringilla nisl a augue vehicula, a condimentum lorem condimentum. Etiam ultrices augue tortor, sed porttitor neque accumsan et. Duis eget faucibus nunc, in suscipit risus. Etiam tincidunt nunc ut lacus viverra, quis tristique turpis eleifend. Donec quis suscipit est. Nullam ac massa eget tellus imperdiet condimentum. Nullam tempus risus non maximus auctor. Mauris bibendum pharetra posuere. Vestibulum at justo id nibh molestie sollicitudin.
+                            
+                            Aliquam a risus tincidunt mi molestie laoreet feugiat eget lectus. Mauris a augue nibh. Duis est tortor, ultricies commodo lorem id, dictum congue orci. Vivamus fermentum eleifend sodales. Quisque nec risus ex. Sed bibendum orci in aliquam sagittis. Cras efficitur arcu ante, eget ornare magna luctus vitae. Aenean leo ex, lobortis sed metus at, maximus porta enim. Etiam viverra nisl nec consectetur aliquet. Etiam elementum nisi ut metus feugiat, eget finibus ex bibendum.
+                            
+                            Aenean posuere pulvinar turpis varius commodo. Aliquam dolor sem, facilisis eget tellus a, volutpat porta eros. Nulla velit metus, condimentum ut tortor id, tincidunt ornare enim. Maecenas a posuere dui. Sed eu viverra elit, at volutpat orci. Aenean id justo mi. Nam et nunc ac nulla posuere imperdiet. Pellentesque ac ullamcorper nisl. Quisque viverra lacus et odio varius tristique. Nullam imperdiet ornare lorem a maximus.
+                            
+                            Nulla facilisi. Nulla rhoncus, magna id sagittis lacinia, dolor eros tempor orci, at pharetra quam nibh ut diam. Proin purus lacus, fermentum eu semper at, gravida sed velit. Aenean commodo tristique risus, at tempus neque pellentesque at. Proin eu nibh id lectus placerat ultrices. Maecenas rhoncus ut dui sed blandit. Donec gravida tellus id egestas pulvinar. Aenean ultrices nisl nibh. Fusce bibendum eget metus et sagittis. Etiam aliquam ante ipsum, eget iaculis sem mattis in. In pellentesque, lectus laoreet accumsan varius, risus elit porttitor turpis, non ultrices leo quam nec sapien.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- /each page specific code.ejs -->
+<!-- end -->
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('ul.tabs').tabs();
+            $('.parallax').parallax();
+
+        });
+    </script>
+<%- include('foot'); %>
