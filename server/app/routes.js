@@ -99,7 +99,13 @@ module.exports = (app, passport, db) => {
   });
 
   app.get('/product/add', auth, (req, res) => {
-    res.render('product/add', { user: req.user, error: req.flash('error') });
+    community.getAll((err, communities) => {
+      res.render('product/add', {
+        user: req.user,
+        error: req.flash('error'),
+        'communities': communities
+      });
+    })
   });
 
   app.post('/product/search', (req, res) => {
@@ -155,7 +161,7 @@ module.exports = (app, passport, db) => {
     })
   })
 
-  app.post('/basket/add', (req, res) => {
+  app.post('/basket/add', auth, (req, res) => {
     //basket.add(req.user)
   })
 }
