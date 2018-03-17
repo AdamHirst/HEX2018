@@ -28,7 +28,7 @@ module.exports = (db) => {
       })
     },
     getAll: (cb) => {
-      db.model.Community.find((err, communties) => { cb(err, communties) })
+      db.model.Community.find((err, communities) => { cb(err, communities) })
     }
   }
 }
