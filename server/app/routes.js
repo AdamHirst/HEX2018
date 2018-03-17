@@ -14,6 +14,12 @@ module.exports = (app, passport, db) => {
     }
   })
 
+  app.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: 'Invalid username or password.'
+  }))
+
   // Logout Route
   app.get('/logout', (req,res) => {
     req.logout();
