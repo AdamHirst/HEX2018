@@ -14,6 +14,23 @@ module.exports = (db) => {
           cb()
         })
       })
+    },
+    getBasketTotal: (user, cb) => {
+      db.model.User.findOne({ _id : user._id })
+      .populate({
+        path: "basket",
+        populate: {
+          path: "product",
+          select: "price"
+        }
+      }).exec((err, user) => {
+        if(err){ cb(err); return }
+        let basketTotal = 0;
+        user.basket.forEach(current => {
+          basketTotal += current.quantity * current.product.price;
+        })
+        cb(null, basketTotal);
+      })
     }
   }
 }

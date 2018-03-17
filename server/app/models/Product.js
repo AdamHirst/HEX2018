@@ -13,5 +13,9 @@ module.exports = new require('mongoose').Schema({
   featured: {
     type: Boolean,
     required: false
+  },
+  price: {
+    type: Number,
+    required: true
   }
 });

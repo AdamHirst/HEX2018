@@ -10,10 +10,22 @@ module.exports = (app, passport, db) => {
       if(err) { res.send(err); return }
       product.getFeatured((err,featuredProduct) => {
         if(err) { res.send(err); return }
-        res.render("index",{
-          user: req.user,
-          people: featuredPeople,
-          products: featuredProduct
+        if(!req.user){
+          res.render("home",{
+            user: req.user,
+            people: featuredPeople,
+            products: featuredProduct,
+          });
+          return;
+        }
+        user.getBasketTotal(req.user, (err, total) => {
+          if(err){ res.send(err); return }
+          req.user.basketTotal = total;
+          res.render("home",{
+            user: req.user,
+            people: featuredPeople,
+            products: featuredProduct,
+          });
         })
       })
     })
