@@ -4,7 +4,7 @@ module.exports = (db) => {
 
     },
     complete: (user) => {
-      
+
     }
   }
 }
