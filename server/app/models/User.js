@@ -15,5 +15,9 @@ module.exports = new require('mongoose').Schema({
     type: "String",
     enum: ['Craftor','Patron'],
     required: true
+  },
+  phone: {
+    type: "String",
+    required: false
   }
 });
