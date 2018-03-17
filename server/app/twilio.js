@@ -24,8 +24,8 @@ module.exports = (app, db) => {
 
   return {
 
-    sendProductOrderNotice: (productName, orderNumber, community) => {
-      var body = `We've got a new order for you! (#${orderNumber}). \nCan you craft a ${productName} to be collected?`;
+    sendProductOrderNotice: (productName, order, community) => {
+      var body = `We've got a new order for you! (#${order.orderNumber}). \nCan you craft a ${productName} to be collected?`;
 
       // Trim the text size to 160 to avoid additional SMS costs
       if (body.length >= 160) {
@@ -47,12 +47,12 @@ module.exports = (app, db) => {
           messageSID: message.sid,
           to: message.to,
           from: message.from,
-          orderNumber: orderNumber,
+          order: order,
           timestamp: message.DateCreated
         });
 
         newMessage.save();
-        
+
       });
 
     },

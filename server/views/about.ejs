@@ -1,0 +1,59 @@
+<%- include('head', { title: "Craft for a Cause" }); %>
+<%- include('nav', { user: user }); %>
+<%- include('page_scripts'); %>
+
+<div class="row center-align">
+    <div class="col s12">
+        
+        <div class="container" style="width: 90%">
+            
+            <div class="row">
+                <h5>Slogan</h5>
+                <div class="col s4 center-align">
+                    <h5>Point 1</h5>
+                    <i class="material-icons large">face</i>
+                    <p>A description of point 1.</p>
+                </div>
+                <div class="col s4 center-align">
+                    <h5>Point 1</h5>
+                    <i class="material-icons large">face</i>
+                    <p>A description of point 1.</p>
+                </div>
+                <div class="col s4 center-align">
+                    <h5>Point 1</h5>
+                    <i class="material-icons large">face</i>
+                    <p>A description of point 1.</p>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="row">
+                <h5>Our Communities</h5>
+                <div class="col s4 center-align">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #community-map {
+        width: 100%;
+        height: 600px;
+    }
+</style>
+<div id="community-map"></div>
+<!-- mapbox script -->
+<script>
+$(document).ready(() => {
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic2Ftd2FsbHMiLCJhIjoiY2pldnJjMXY5MGp3djJ3bDdvb3NjMWwwMiJ9.WECcDGDpHCMY2SLAConozA';
+    var map = new mapboxgl.Map({
+        container: 'community-map', // container id
+        style: 'mapbox://styles/samwalls/cjevrfq6i1ovc2rmuh4c3j5fm', //hosted style id
+        center: [-77.38, 39], // starting position
+        zoom: 3 // starting zoom
+    });
+});
+</script>
+
+<%- include('foot'); %>
