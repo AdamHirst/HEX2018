@@ -7,11 +7,19 @@ const authToken = "6a15dcb9d4287aca8b6da25d381d2aa2";
 // const authToken = "8aa1635b0eabcd93cac79970e3d07706";
 
 const client = require('twilio')(accountSID, authToken);
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
+
 
 module.exports = (app, db) => {
 
-  app.get("/twillio", (req, res) => {
-    res.send("hello world");
+  app.post("/twilio", (req, res) => {
+    const twiml = new MessagingResponse();
+
+    twiml.message('Hello Reponse');
+
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
+
   });
 
   return {
