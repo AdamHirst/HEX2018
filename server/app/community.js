@@ -13,6 +13,12 @@ module.exports = (db) => {
         if(err){ cb(err); return }
         cb(null);
       })
+    },
+    search: (searchTerm, cb) => {
+      db.model.Community.find({ name: { "$regex": searchTerm, "$options": "i" } }, (err, results) => {
+        if(err){ cb(err); return }
+        cb(null, results)
+      })
     }
   }
 }
