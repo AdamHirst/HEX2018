@@ -14,6 +14,10 @@ module.exports = new require('mongoose').Schema({
     type: Boolean,
     required: false
   },
+  image: {
+    type: String,
+    require:true
+  },
   price: {
     type: Number,
     required: true
