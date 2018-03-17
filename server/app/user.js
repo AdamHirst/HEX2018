@@ -7,39 +7,14 @@ module.exports = (db) => {
           email: userDetails.email,
           type: "Patron",
           password: hash,
-          contact: userDetails.contact
+          contact: userDetails.contact,
+          basketTotal: 0
         });
 
         newUser.save(err => {
           if(err){ cb(err); return }
           cb()
         })
-      })
-    },
-    getBasketTotal: (user, cb) => {
-      if(!user){
-        cb(null, null);
-        return
-      }
-      db.model.User.findOne({ _id : user._id })
-      .populate({
-        path: "basket",
-        populate: {
-          path: "product",
-          select: "price"
-        }
-      }).exec((err, user) => {
-        if(err){ cb(err); return }
-        console.log(user);
-        let basketTotal = 0;
-        if(user.basket){
-          user.basket.forEach(current => {
-            basketTotal += current.quantity * current.product.price;
-          })
-          user.basketTotal = basketTotal;
-          console.log(basketTotal);
-        }
-        cb(null, user);
       })
     }
   }
