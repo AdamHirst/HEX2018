@@ -21,9 +21,7 @@ module.exports = (db) => {
         body: body
       }).then(message =>  console.log(message.sid));
 
-      return;
-
-    }
+    },
 
     sendProductOrderNotice: (productName, orderNumber, community) => {
       var body = `We've got a new order for you! (#${orderNumber}). \n Can you craft a ${productName} to be collected?`;
