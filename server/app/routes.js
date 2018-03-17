@@ -81,7 +81,7 @@ module.exports = (app, passport, db) => {
     if(req.user){
       res.redirect('/');
     } else {
-      res.render("login", {});
+      res.render("login", { error: req.flash('error') });
     }
   })
 
@@ -99,9 +99,23 @@ module.exports = (app, passport, db) => {
 
   app.get('/register', (req,res) => {
     if(!req.user){
-      res.render('register', {});
+      res.render('register', { error: '' });
     } else {
       res.redirect('/');
     }
+  })
+
+  app.post('/product/search', (req, res) => {
+    product.search(req.body.searchTerm, (err,results) => {
+      if(err) { res.send(err); return }
+      res.send(results);
+    })
+  })
+
+  app.post('/community/search', (req, res) => {
+    community.search(req.body.searchTerm, (err,results) => {
+      if(err) { res.send(err); return }
+      res.send(results);
+    })
   })
 }

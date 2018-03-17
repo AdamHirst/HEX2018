@@ -1,11 +1,18 @@
 <%- include('head', { title: "Register - Craft for a Cause" }); %>
 
 <div class="teal lighten-3 valign-wrapper" style="width: 100%; height: 100%; position: absolute;">
-  <div class="center-align" style="margin: auto;">
+  <div class="center-align" style="margin: auto; max-width: 300px; width: 100%;">
     <img src="img/logo.png" height="150" />
-    <div class="card">
-      <form action="/login" method="post">
+    <div class="card" style="width: 100%;">
+      <form action="/create/user" method="post">
         <div class="card-content">
+          <% if (error != "") { %>
+          <div class="card red white-text" style="margin-bottom: 20px;">
+            <div class="card-content">
+              <%= error %>
+            </div>
+          </div>
+          <% } %>
           <div class="input-field col s6">
             <input id="name" type="text" class="validate" required>
             <label for="name" style="left: 0;">Full name</label>
@@ -24,7 +31,7 @@
           </div>
         </div>
         <div class="card-action">
-          <button class="btn teal waves-effect waves-light">Login</button>
+          <button class="btn teal waves-effect waves-light">Register</button>
         </div>
       </form>
     </div>

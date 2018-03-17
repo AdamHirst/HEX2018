@@ -4,7 +4,7 @@ module.exports = db => {
         db.model.Person.find({ featured: true })
           .populate({
             path: "community",
-            select: "name location"
+            select: "name location image"
           })
           .exec((err,people) => {
             if(err) return err;
