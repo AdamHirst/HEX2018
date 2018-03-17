@@ -14,9 +14,9 @@ module.exports = new require('mongoose').Schema({
     type: String,
     required: true
   },
-  order: {
+  orderStatus: {
     type: Schema.ObjectId,
-    ref: "Order",
+    ref: "Status",
   },
   timestamp: {
     type: Date
