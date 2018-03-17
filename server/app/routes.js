@@ -39,6 +39,22 @@ module.exports = (app, passport, db) => {
     })
   })
 
+  app.get('/browse', (req,res) => {
+    if(!user.req){
+      res.render('browse', {
+        user: req.user,
+      })
+    } else {
+      user.getBasketTotal(req.user, (err, total) => {
+        if(err){ res.send(err); return }
+        req.user.basketTotal = total;
+        res.render('browse', {
+          user: req.user,
+        })
+      })
+    }
+  })
+
   app.post('/create/community', (req, res) => {
     community.create(req.body, err => {
       if(err) { res.send(err); return; }
@@ -50,6 +66,13 @@ module.exports = (app, passport, db) => {
     product.create(req.body, err => {
       if(err) { res.send(err); return; }
       res.redirect('/');
+    })
+  })
+
+  app.post('/create/person', (req, res) => {
+    people.create(req.body, err => {
+      if(err){ res.send(err); return }
+      res.redirect('/')
     })
   })
 
