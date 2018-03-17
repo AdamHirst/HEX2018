@@ -9,16 +9,33 @@ const authToken = "8aa1635b0eabcd93cac79970e3d07706";
 const client = require('twilio')(accountSID, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const from = '+3197004498474';
+const affirmation = [];
 
 module.exports = (app, db) => {
 
   app.post("/twilio", (req, res) => {
-    const twiml = new MessagingResponse();
+    var fromCrafter = req.body.From;
+    var message = req.body.Body;
 
-    twiml.message('Hello Reponse');
+    if(affirmation.includes(message)) {
 
-    res.writeHead(200, {'Content-Type': 'text/xml'});
-    res.end(twiml.toString());
+      db.model.Message.findOne({to: fromCrafter}, (err, message) => {
+
+        db.model.Order.findOneAndUpdate({_id: message.order}, {$set: {status: "Crafting"}}, (err, order) =>{
+          if (err) throw err;
+
+          const twiml = new MessagingResponse();
+
+          twiml.message('Great! We will let you know when we can collect soon!');
+
+          res.writeHead(200, {'Content-Type': 'text/xml'});
+          res.end(twiml.toString());
+        });
+
+      });
+
+    }
+
 
   });
 
