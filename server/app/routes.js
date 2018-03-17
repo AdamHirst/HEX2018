@@ -1,10 +1,10 @@
-module.exports = (app, passport, db) => {
+module.exports = (app, passport, db, twilio) => {
 
   const people    = require('./people.js')(db);
   const product   = require('./product.js')(db);
   const user      = require('./user.js')(db);
   const community = require('./community.js')(db);
-  const basket    = require('./basket.js')(db);
+  const basket    = require('./basket.js')(db, twilio);
 
   function auth(req, res, next) {
     if (req.user) {
@@ -50,7 +50,7 @@ module.exports = (app, passport, db) => {
 
   app.get('/browse', populateBasket, (req,res) => {
     res.render('browse', {
-      'user': user,
+      'user': req.user,
     })
   })
 
@@ -58,7 +58,7 @@ module.exports = (app, passport, db) => {
     community.getAll((err, communities) => {
       if(err){ res.send(err); return }
       res.render('about', {
-        'user': user,
+        'user': req.user,
         'communities': communities
       })
     })
@@ -159,7 +159,7 @@ module.exports = (app, passport, db) => {
     community.get(req.params.id, (err, target) => {
       if(err){ res.send(err); return }
       res.render('community',{
-        'user': user,
+        'user': req.user,
         community: target
        })
     })

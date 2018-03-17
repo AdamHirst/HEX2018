@@ -41,36 +41,43 @@ module.exports = (app, db) => {
 
   return {
 
-    sendProductOrderNotice: (productName, order, community) => {
-      var body = `We've got a new order for you! (#${order.orderNumber}). \nCan you craft a ${productName} to be collected?`;
+    sendProductOrderNotice: (order) => {
 
-      // Trim the text size to 160 to avoid additional SMS costs
-      if (body.length >= 160) {
-        var difference = 160 - body.length ;
-        productName.substring(0, productName.length - difference);
-      }
+      db.model.Product.findOne({_id: order.product})
+        .populate('community')
+        .exec((err, product) => {
 
-      // console.log(community.contactNumber);
-      // console.log(body);
+          var body = `We've got a new order for you! (#${order.orderNumber}). \nCan you craft a ${product.name} to be collected?`;
 
-      client.messages.create({
-        to: community.contactNumber,
-        from: from,
-        body: body
-      }).then(message => {
+          // Trim the text size to 160 to avoid additional SMS costs
+          if (body.length >= 160) {
+            var difference = 160 - body.length ;
+            productName.substring(0, product.name.length - difference);
+          }
 
-        // Create a new Conversation
-        var newMessage = new db.model.Message({
-          messageSID: message.sid,
-          to: message.to,
-          from: message.from,
-          order: order,
-          timestamp: message.DateCreated
+          // console.log(community.contactNumber);
+          // console.log(body);
+
+          client.messages.create({
+            to: product.community.contactNumber,
+            from: from,
+            body: body
+          }).then(message => {
+
+            // Create a new Conversation
+            var newMessage = new db.model.Message({
+              messageSID: message.sid,
+              to: message.to,
+              from: message.from,
+              order: order,
+              timestamp: message.DateCreated
+            });
+
+            newMessage.save();
+
+          });
+
         });
-
-        newMessage.save();
-
-      });
 
     },
 

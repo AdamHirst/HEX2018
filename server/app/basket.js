@@ -1,17 +1,18 @@
 const bcypt = require('bcrypt')
 
-module.exports = (db) => {
+module.exports = (db, twilio) => {
   return {
-    add: (user, productId, quantity) => {
-      db.User.update({ _id: user._id },{ $push: { basket: {
+    add: (user, productId, quantity, cb) => {
+      db.model.User.update({ _id: user._id },{ $push: { basket: {
         product: productId,
         'quantity': quantity
       } } }, err => {
-        cb(err)
+        if(err) { cb(err); return }
+        cb()
       })
     },
     complete: (user, cb) => {
-      db.User.findOne({ _id: user._id })
+      db.model.User.findOne({ _id: user._id })
       .populate({
         path: "basket",
         populate: {
@@ -26,17 +27,19 @@ module.exports = (db) => {
           let newID = user.email + Date.now() + current.product.name;
           let salt = bcrypt.genSaltSync(5);
           newID = bcrypt.hashSync(newID, salt);
-          orders.push({
+          let temp = {
             orderNumber: newID,
             quantity: current.quantity,
             product: current.product,
             customer: user._id,
             status: "Processing"
-          })
+          }
+          twilio.sendProductOrderNotice(temp);
+          orders.push(temp);
         };
 
         try {
-          db.Order.insertMany(orders);
+          db.model.Order.insertMany(orders);
           cb(null)
         } catch(e) {
           cb(e)
