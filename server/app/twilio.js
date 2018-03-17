@@ -8,9 +8,11 @@ const authToken = "6a15dcb9d4287aca8b6da25d381d2aa2";
 
 const client = require('twilio')(accountSID, authToken);
 
-module.exports = (db) => {
+module.exports = (app, db) => {
 
-
+  app.get("/twillio", (req, res) => {
+    res.send("hello world");
+  });
 
   return {
 

@@ -49,6 +49,6 @@ passport.use(new LocalStrategy({
 require('./app/routes.js')(app, passport, db);
 
 // Load Twilio Interface
-require('./app/twilio.js')(db);
+var twilio = require('./app/twilio.js')(app, db);
 
 app.listen(3000, () => console.log("Debugging on port 3000"));
