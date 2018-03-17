@@ -10,6 +10,10 @@ module.exports = new require('mongoose').Schema({
     type: Number,
     required: true
   },
+  description: {
+    type: String,
+    required: true
+  },
   location: {
     latitude: {
       type: String,
