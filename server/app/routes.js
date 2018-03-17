@@ -104,4 +104,18 @@ module.exports = (app, passport, db) => {
       res.redirect('/');
     }
   })
+
+  app.post('/product/search', (req, res) => {
+    product.search(req.body.searchTerm, (err,results) => {
+      if(err) { res.send(err); return }
+      res.send(results);
+    })
+  })
+
+  app.post('/community/search', (req, res) => {
+    community.search(req.body.searchTerm, (err,results) => {
+      if(err) { res.send(err); return }
+      res.send(results);
+    })
+  })
 }
