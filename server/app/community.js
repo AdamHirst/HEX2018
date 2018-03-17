@@ -19,6 +19,12 @@ module.exports = (db) => {
         if(err){ cb(err); return }
         cb(null, results)
       })
+    },
+    get: (id, cb) => {
+      db.model.Community.findOne({ _id, id}, (err, target) => {
+        if(err){ cb(err); return }
+        cb(null, target)
+      })
     }
   }
 }

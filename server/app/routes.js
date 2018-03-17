@@ -11,19 +11,10 @@ module.exports = (app, passport, db) => {
       if(err) { res.send(err); return }
       product.getFeatured((err,featuredProduct) => {
         if(err) { res.send(err); return }
-        if(!req.user){
-          res.render("home",{
-            user: req.user,
-            people: featuredPeople,
-            products: featuredProduct,
-          });
-          return;
-        }
-        user.getBasketTotal(req.user, (err, total) => {
+        user.getBasketTotal(req.user, (err, user) => {
           if(err){ res.send(err); return }
-          req.user.basketTotal = total;
           res.render("home",{
-            user: req.user,
+            'user': user,
             people: featuredPeople,
             products: featuredProduct,
           });
@@ -40,19 +31,12 @@ module.exports = (app, passport, db) => {
   })
 
   app.get('/browse', (req,res) => {
-    if(!user.req){
+    user.getBasketTotal(req.user, (err, user) => {
+      if(err){ res.send(err); return }
       res.render('browse', {
-        user: req.user,
+        'user': user,
       })
-    } else {
-      user.getBasketTotal(req.user, (err, total) => {
-        if(err){ res.send(err); return }
-        req.user.basketTotal = total;
-        res.render('browse', {
-          user: req.user,
-        })
-      })
-    }
+    })
   })
 
   app.post('/create/community', (req, res) => {
@@ -116,6 +100,45 @@ module.exports = (app, passport, db) => {
     community.search(req.body.searchTerm, (err,results) => {
       if(err) { res.send(err); return }
       res.send(results);
+    })
+  })
+
+  app.get('/community/:id', (req, res) => {
+    user.getBasketTotal(req.user, (err, user) => {
+      if(err){ res.send(err); return }
+      community.get(req.params.id, (err, target) => {
+        if(err){ res.send(err); return }
+        res.render('community',{
+          'user': user,
+          community: target
+         })
+      })
+    })
+  })
+
+  app.get('/person/:id', (req, res) => {
+    user.getBasketTotal(req.user, (err, user) => {
+      if(err){ res.send(err); return }
+      person.get(req.params.id, (err, target) => {
+        if(err){ res.send(err); return }
+        res.render('person',{
+          'user': user,
+          person: target
+         })
+      })
+    })
+  })
+
+  app.get('/product/:id', (req, res) => {
+    user.getBasketTotal(req.user, (err, user) => {
+      if(err){ res.send(err); return }
+      product.get(req.params.id, (err, target) => {
+        if(err){ res.send(err); return }
+        res.render('product',{
+          'user': user,
+          product: target
+         })
+      })
     })
   })
 }
