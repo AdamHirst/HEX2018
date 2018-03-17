@@ -48,6 +48,15 @@ module.exports = (app, passport, db) => {
     })
   })
 
+  app.get('/about', (req,res) => {
+    user.getBasketTotal(req.user, (err, user) => {
+      if(err){ res.send(err); return }
+      res.render('about', {
+        'user': user,
+      })
+    })
+  })
+
   app.post('/create/community', (req, res) => {
     community.create(req.body, err => {
       if(err) { res.send(err); return; }
