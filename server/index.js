@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
-	secret: 'hackvat',
+	secret: 'hexhack',
 	resave: false,
 	saveUninitialized: false
 }));
