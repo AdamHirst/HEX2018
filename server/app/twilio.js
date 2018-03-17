@@ -43,7 +43,7 @@ module.exports = (app, db) => {
 
     sendProductOrderNotice: (order) => {
 
-      db.model.Product.findOne({_id, order.product})
+      db.model.Product.findOne({_id: order.product})
         .populate('community')
         .exec((err, product) => {
 
