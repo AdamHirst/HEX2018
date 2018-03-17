@@ -13,7 +13,8 @@
       </ul>
       <ul class="right">
         <% if (!user) { %>
-          <li>Login</li>
+          <li><a href="/login">Patron Login</a></li>
+          <li><a href="/register">Register</a></li>
         <% } else { %>
           <li class="link"><a href="/logout">Logout</a></li>
           <li class="link"><a href="#">Basket (<%= user.basket %>)</a></li>
