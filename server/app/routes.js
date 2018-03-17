@@ -81,7 +81,7 @@ module.exports = (app, passport, db) => {
     if(req.user){
       res.redirect('/');
     } else {
-      res.render("login", {});
+      res.render("login", { error: req.flash('error') });
     }
   })
 
@@ -99,7 +99,7 @@ module.exports = (app, passport, db) => {
 
   app.get('/register', (req,res) => {
     if(!req.user){
-      res.render('register', {});
+      res.render('register', { error: '' });
     } else {
       res.redirect('/');
     }
