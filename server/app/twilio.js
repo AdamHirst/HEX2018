@@ -27,7 +27,7 @@ module.exports = (db) => {
       var body = `We've got a new order for you! (#${orderNumber}). \n Can you craft a ${productName} to be collected?`;
 
       // Trim the text size to 160 to avoid additional SMS costs
-      if (body.length => 160) {
+      if (body.length >= 160) {
         var difference = 160 - body.length ;
         productName.substring(0, productName.length - difference);
       }
