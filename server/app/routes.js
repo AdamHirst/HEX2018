@@ -14,20 +14,28 @@ module.exports = (app, passport, db) => {
     }
   }
 
+  function populateBasket(req, res, next) {
+    if (req.user) {
+      user.getBasketTotal(req.user, (err, user) => {
+        if(err){ res.send(err); return }
+        next();
+      });
+    } else {
+      next();
+    }
+  }
+
   // Index root
-  app.get('/', (req,res) => {
+  app.get('/', populateBasket, (req,res) => {
     people.getFeatured((err, featuredPeople) => {
       if(err) { res.send(err); return }
       product.getFeatured((err,featuredProduct) => {
         if(err) { res.send(err); return }
-        user.getBasketTotal(req.user, (err, user) => {
-          if(err){ res.send(err); return }
-          res.render("home",{
-            'user': user,
-            people: featuredPeople,
-            products: featuredProduct,
-          });
-        })
+        res.render("home",{
+          'user': user,
+          people: featuredPeople,
+          products: featuredProduct,
+        });
       })
     })
   });
@@ -39,12 +47,9 @@ module.exports = (app, passport, db) => {
     })
   })
 
-  app.get('/browse', (req,res) => {
-    user.getBasketTotal(req.user, (err, user) => {
-      if(err){ res.send(err); return }
-      res.render('browse', {
-        'user': user,
-      })
+  app.get('/browse', populateBasket, (req,res) => {
+    res.render('browse', {
+      'user': user,
     })
   })
 
@@ -139,42 +144,34 @@ module.exports = (app, passport, db) => {
     })
   })
 
-  app.get('/community/:id', (req, res) => {
-    user.getBasketTotal(req.user, (err, user) => {
+  app.get('/community/:id', populateBasket, (req, res) => {
+    community.get(req.params.id, (err, target) => {
       if(err){ res.send(err); return }
-      community.get(req.params.id, (err, target) => {
-        if(err){ res.send(err); return }
-        res.render('community',{
-          'user': user,
-          community: target
-         })
-      })
+      res.render('community',{
+        'user': user,
+        community: target
+       })
     })
   })
 
-  app.get('/person/:id', (req, res) => {
-    user.getBasketTotal(req.user, (err, user) => {
+  app.get('/person/:id', populateBasket, (req, res) => {
+    person.get(req.params.id, (err, target) => {
       if(err){ res.send(err); return }
-      person.get(req.params.id, (err, target) => {
-        if(err){ res.send(err); return }
-        res.render('person',{
-          'user': user,
-          person: target
-         })
-      })
+      res.render('person',{
+        'user': user,
+        person: target
+       })
     })
   })
 
-  app.get('/product/:id', (req, res) => {
-    user.getBasketTotal(req.user, (err, user) => {
+  app.get('/product/:id', populateBasket, (req, res) => {
+    console.log(req.params.id);
+    product.get(req.params.id, (err, target) => {
       if(err){ res.send(err); return }
-      product.get(req.params.id, (err, target) => {
-        if(err){ res.send(err); return }
-        res.render('product',{
-          'user': user,
-          product: target
-         })
-      })
+      res.render('product/view',{
+        'user': user,
+        product: target
+       })
     })
   })
 
