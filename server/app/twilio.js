@@ -19,7 +19,7 @@ module.exports = (app, db) => {
     sendText: (to, body) => {
       client.messages.create({
         to: to,
-        from: '+18339883083',
+        from: '+3197004498474',
         body: body
       }).then(message =>  console.log(message.sid));
 
