@@ -9,23 +9,40 @@ const authToken = "8aa1635b0eabcd93cac79970e3d07706";
 const client = require('twilio')(accountSID, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const from = '+3197004498474';
+const confirmationWords = ['yes', 'ye', 'yea', 'yeah', 'okay', 'ok', 'accept', 'approve', 'good'];
 
 module.exports = (app, db) => {
 
   app.post("/twilio", (req, res) => {
-    const twiml = new MessagingResponse();
+    var fromCrafter = req.body.From;
+    var message = req.body.Body;
 
-    twiml.message('Hello Reponse');
+    if(confirmationWords.includes(message)) {
 
-    res.writeHead(200, {'Content-Type': 'text/xml'});
-    res.end(twiml.toString());
+      db.model.Message.findOne({to: fromCrafter}, (err, message) => {
+
+        db.model.Order.findOneAndUpdate({_id: message.order}, {$set: {status: "Crafting"}}, (err, order) =>{
+          if (err) throw err;
+
+          const twiml = new MessagingResponse();
+
+          twiml.message('Great! We will let you know when we can collect soon!');
+
+          res.writeHead(200, {'Content-Type': 'text/xml'});
+          res.end(twiml.toString());
+        });
+
+      });
+
+    }
+
 
   });
 
   return {
 
-    sendProductOrderNotice: (productName, orderNumber, community) => {
-      var body = `We've got a new order for you! (#${orderNumber}). \nCan you craft a ${productName} to be collected?`;
+    sendProductOrderNotice: (productName, order, community) => {
+      var body = `We've got a new order for you! (#${order.orderNumber}). \nCan you craft a ${productName} to be collected?`;
 
       // Trim the text size to 160 to avoid additional SMS costs
       if (body.length >= 160) {
@@ -47,12 +64,12 @@ module.exports = (app, db) => {
           messageSID: message.sid,
           to: message.to,
           from: message.from,
-          orderNumber: orderNumber,
+          order: order,
           timestamp: message.DateCreated
         });
 
         newMessage.save();
-        
+
       });
 
     },
