@@ -20,6 +20,10 @@ module.exports = new require('mongoose').Schema({
       required: true
     }
   },
+  image: {
+    type: String,
+    require:true
+  },
   people: [{
     type: Schema.ObjectId,
     ref: "Person",
