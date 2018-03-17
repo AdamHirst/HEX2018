@@ -1,3 +1,4 @@
+<a href="/product/<%= id %>">
 <div class="col s12 m4">
   <div class="card">
     <div class="card-image" style="max-height: 200px; overflow: hidden;">
@@ -5,11 +6,16 @@
       <span class="card-title"><%= title %></span>
     </div>
     <div class="card-content" style="padding: 16px;">
-      <p><%= description %></p>
+      <p style="color: #000;"><%= description %></p>
     </div>
-    <div class="card-action" style="padding-bottom: 12px; padding-top: 10px; margin: 0; padding-right: 12px; padding-left: 12px;">
+    <div class="card-action" style="color: #000; padding-bottom: 12px; padding-top: 10px; margin: 0; padding-right: 12px; padding-left: 12px;">
       <p style="display: inline; line-height: 36px;">€<%= price %></p>
-      <button class="btn teal waves-effect waves-light right">Add to basket</button>
+      <form action="/basket/add" method="post" style="display: inline">
+        <input type="hidden" name="id" value="<%- id %>" />
+        <input type="hidden" name="quantity" value="1" />
+        <button class="btn teal waves-effect waves-light right">Add to basket</button>
+      </form>
     </div>
   </div>
 </div>
+</a>
