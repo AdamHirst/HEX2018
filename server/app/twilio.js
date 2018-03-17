@@ -9,7 +9,7 @@ const authToken = "8aa1635b0eabcd93cac79970e3d07706";
 const client = require('twilio')(accountSID, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const from = '+3197004498474';
-const affirmation = [];
+const confirmationWords = ['yes', 'ye', 'yea', 'yeah', 'okay', 'ok', 'accept', 'approve', 'good'];
 
 module.exports = (app, db) => {
 
@@ -17,7 +17,7 @@ module.exports = (app, db) => {
     var fromCrafter = req.body.From;
     var message = req.body.Body;
 
-    if(affirmation.includes(message)) {
+    if(confirmationWords.includes(message)) {
 
       db.model.Message.findOne({to: fromCrafter}, (err, message) => {
 
