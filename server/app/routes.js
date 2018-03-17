@@ -53,11 +53,12 @@ module.exports = (app, passport, db) => {
     })
   })
 
-  app.get('/about', (req,res) => {
-    user.getBasketTotal(req.user, (err, user) => {
+  app.get('/about', populateBasket, (req,res) => {
+    community.getAll((err, communities) => {
       if(err){ res.send(err); return }
       res.render('about', {
         'user': user,
+        'communities': communities
       })
     })
   })
