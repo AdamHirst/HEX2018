@@ -165,7 +165,6 @@ module.exports = (app, passport, db) => {
   })
 
   app.get('/product/:id', populateBasket, (req, res) => {
-    console.log(req.params.id);
     product.get(req.params.id, (err, target) => {
       if(err){ res.send(err); return }
       res.render('product/view',{
