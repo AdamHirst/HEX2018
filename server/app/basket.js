@@ -1,4 +1,4 @@
-const bcypt = require('bcrypt')
+const bcrypt = require('bcrypt')
 
 module.exports = (db, twilio) => {
   return {
@@ -22,8 +22,9 @@ module.exports = (db, twilio) => {
       })
 
     },
-    complete: (user, formData, cb) => {
-      db.model.User.findOne({ _id: user._id }, (err, user) => {
+    complete: (userS, formData, cb) => {
+      db.model.User.findOne({ _id: userS._id }, (err, user) => {
+        if (err) { cb(err); console.log(err); return; }
         let orders = [];
         let status = [];
         for(let i=0; i<user.basket.length;i++){
