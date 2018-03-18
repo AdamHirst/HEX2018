@@ -188,4 +188,12 @@ module.exports = (app, passport, db, twilio) => {
     })
   })
 
+  app.get('/checkout', auth, (req,res) => {
+    db.model.User.findOne( { _id: req.user._id } )
+    .populate('basket.product')
+    .exec((err,user)=>{
+      res.render('checkout', { 'user': user });
+    })
+  })
+
 }
