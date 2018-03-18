@@ -37,7 +37,7 @@
                       "geometry": {
                           "type": "Point",
                           "coordinates": [
-                              <%= product.community.location.latitude %>, <%= product.community.location.longitude %>
+                              <%= product.community.location.longitude %>, <%= product.community.location.latitude %>
                           ]
                       }
                   },
@@ -47,7 +47,7 @@
           var map = new mapboxgl.Map({
               container: "community-map", // container id
               style: "mapbox://styles/samwalls/cjevrfq6i1ovc2rmuh4c3j5fm", //hosted style id
-              center: [<%= product.community.location.latitude %>, <%= product.community.location.longitude %>], // starting position
+              center: [<%= product.community.location.longitude %>, <%= product.community.location.latitude %>], // starting position
               zoom: 3 // starting zoom
           });
 
