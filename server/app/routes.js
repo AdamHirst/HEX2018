@@ -203,7 +203,7 @@ module.exports = (app, passport, db, twilio) => {
       let amount = user.basketTotal
       basket.complete(req.user, req.body, err => {
         if(err){ res.send(err); return }
-        payment.makePayment(amount, req.body.stripeToken, (err) => {
+        payment.makePayment(amount, req.body.stripeToken, req.user, (err) => {
           if(err){ res.send(err); return }
           res.redirect('/myorders');
         })
