@@ -9,12 +9,12 @@
     </style>
 
     <div class="parallax-container">
-        <div class="parallax"><img src="img/ggol.gif"></div>
+        <div class="parallax"><img src="img/making.jpg"></div>
     </div>
 
     <div class="row">
         <div class="col s12 teal lighten-1">
-            <ul class="tabs teal lighten-1">
+            <ul class="tabs teal lighten-1 container1">
                 <li class="tab col s3 teal lighten-2"><a class="white-text" href="#browse_products">Products</a></li>
                 <li class="tab col s3 teal lighten-2"><a class="white-text" href="#browse_communities">Communities</a></li>
             </ul>
@@ -71,10 +71,10 @@
                     <div class="card medium">
                         <div class="card-image" style="max-height: 200px; overflow: hidden;">
                             <img src="${product.image}">
-                            <span class="card-title">${product.name}</span>
                         </div>
                         <div class="card-content" style="padding: 16px;">
-                            <p style="color: #000;">${product.description}</p>
+                            <span class="card-title" style="color: #000;">${product.name}</span>
+                            <p style="color: #000;"><a href="/community/${product.community._id}">${product.community.name}:</a></b> ${product.description}</p>
                         </div>
                         <div class="card-action" style="color: #000; padding-bottom: 12px; padding-top: 10px; margin: 0; padding-right: 12px; padding-left: 12px;">
                             <p style="display: inline; line-height: 36px;">€${product.price}</p>
@@ -95,12 +95,12 @@
             var s = `
             <a href="/community/${community._id}">
                 <div class="col s12 m4">
-                    <div class="card">
+                    <div class="card medium">
                         <div class="card-image" style="max-height: 200px; overflow: hidden;">
                             <img src="${community.image}">
-                            <span class="card-title">${community.name}</span>
                         </div>
                         <div class="card-content" style="padding: 16px;">
+                            <span class="card-title" style="color: #000;">${community.name}</span>
                             <p style="color: #000;">${community.description}</p>
                         </div>
                     </div>
