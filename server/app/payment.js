@@ -7,7 +7,7 @@ module.exports = () => {
   	    amount: amount,
   	    currency: 'eur',
   	    card: stripeToken,
-        source: user._id
+        customer: "cus_CVw5rJOkIhsq8U"
       }
 
       stripe.charges.create(charge, (err, res) => {
