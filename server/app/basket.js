@@ -22,7 +22,7 @@ module.exports = (db, twilio) => {
       })
 
     },
-    complete: (user, cb) => {
+    complete: (user, formData, cb) => {
       db.model.User.findOne({ _id: user._id }, (err, user) => {
         let orders = [];
         let status = [];
@@ -36,7 +36,12 @@ module.exports = (db, twilio) => {
             quantity: current.quantity,
             product: current.product,
             customer: user._id,
-            status: "Processing"
+            status: "Processing",
+            address: {
+              postcode: formData.postcode,
+              streetName: formData.streetName,
+              streetNo: formData.streetNo
+            }
           }
           twilio.sendProductOrderNotice(temp);
           orders.push(temp);
