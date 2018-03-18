@@ -50,8 +50,7 @@
                             <input type="text" placeholder="search" id="search-community" class="autocomplete teal-text" >
                         </div>
 
-                        <div id="community-search-results">
-
+                        <div id="community-search-results" class="row">
                         </div>
                     </div>
                 </div>
@@ -65,12 +64,35 @@
 
     <%- include('page_scripts'); %>
     <script>
+        function renderProductCard(product) {
+                
+        }
+
+        function renderCommunityCard(community, parentElement) {
+            var s = `
+            <a href="/community/${community.id}">
+                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-image" style="max-height: 200px; overflow: hidden;">
+                            <img src="${community.image}">
+                            <span class="card-title">${community.name}</span>
+                        </div>
+                        <div class="card-content" style="padding: 16px;">
+                            <p style="color: #000;">${community.description}</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            `;
+            return s;
+        }
+
         $(document).ready(function(){
             $('ul.tabs').tabs();
             $('.parallax').parallax();
 
             $('#search-product').on("keyup paste", (e) => {
-                var userSearch = $(this).val();
+                var userSearch = $("search-product").val();
                 $.post("/product/search", {searchTerm: userSearch}, (products) => {
                     $("#product-search-results").text("number of results: " + products.length);
                 }).fail(() => {
@@ -79,9 +101,15 @@
                 });
             });
             $('#search-community').on("keyup paste", (e) => {
-                var userSearch = $(this).val();
+                var userSearch = $("search-community").val();
                 $.post("/community/search", {searchTerm: userSearch}, (communities) => {
-                    $("#community-search-results").text("number of results: " + communities.length);
+                    // $("#community-search-results").text(JSON.stringify(communities));
+                    result = "";
+                    console.log(communities);
+                    $("#community-search-results").html("");
+                    communities.forEach((community) => {
+                        $("#community-search-results").append(renderCommunityCard(community, $(this)));
+                    });
                 }).fail(() => {
                     Materialize.toast("search error!");
                     console.log("search error!");
