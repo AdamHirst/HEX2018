@@ -22,7 +22,12 @@ module.exports = db => {
     },
     search: (searchTerm, cb) => {
       let results = [];
-      db.model.Product.find( {}, (err, allProducts) => {
+      db.model.Product.find( {} )
+      .populate({
+        path: "community",
+        select: "name _id"
+      })
+      .exec((err, allProducts) => {
         allProducts.forEach(current => {
           console.log(current)
           if(current.name.toLowerCase().includes(searchTerm.toLowerCase())){
