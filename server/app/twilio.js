@@ -43,7 +43,9 @@ module.exports = (app, db) => {
 
     sendProductOrderNotice: (order) => {
 
-      db.model.Product.findOne({_id: order.product})
+      db.model.Order.findOne({orderNumber: order.orderNumber}, (err, order) => {
+
+        db.model.Product.findOne({_id: order.product})
         .populate('community')
         .exec((err, product) => {
 
@@ -69,7 +71,7 @@ module.exports = (app, db) => {
               messageSID: message.sid,
               to: message.to,
               from: message.from,
-              order: order,
+              order: order._id,
               timestamp: message.DateCreated
             });
 
@@ -78,6 +80,10 @@ module.exports = (app, db) => {
           });
 
         });
+        
+      });
+
+
 
     },
 
