@@ -21,7 +21,14 @@ module.exports = db => {
       })
     },
     search: (searchTerm, cb) => {
-      db.model.Product.find({ name: { "$regex": searchTerm, "$options": "i" } }, (err, results) => {
+      let results = [];
+      db.model.Product.find( {}, (err, allProducts) => {
+        allProducts.forEach(current => {
+          console.log(current)
+          if(current.name.toLowerCase().includes(searchTerm.toLowerCase())){
+            results.push(current);
+          }
+        })
         if(err){ cb(err); return }
         cb(null, results)
       })
