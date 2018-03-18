@@ -20,8 +20,8 @@ module.exports = (app, db) => {
     if(confirmationWords.includes(message)) {
 
       db.model.Message.findOne({to: fromCrafter}, (err, message) => {
-
-        db.model.Order.findOneAndUpdate({_id: message.order}, {$set: {status: "Crafting"}}, (err, order) =>{
+        console.log(message);
+        db.model.Order.update({_id: message.order}, {$set: {status: "Crafting"}}, (err, order) =>{
           if (err) throw err;
 
           const twiml = new MessagingResponse();
@@ -44,7 +44,7 @@ module.exports = (app, db) => {
     sendProductOrderNotice: (order) => {
 
       db.model.Order.findOne({orderNumber: order.orderNumber}, (err, order) => {
-
+        console.log(order);
         db.model.Product.findOne({_id: order.product})
         .populate('community')
         .exec((err, product) => {
@@ -80,7 +80,7 @@ module.exports = (app, db) => {
           });
 
         });
-        
+
       });
 
 
