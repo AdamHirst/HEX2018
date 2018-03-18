@@ -65,12 +65,35 @@
     <%- include('page_scripts'); %>
     <script>
         function renderProductCard(product) {
-
+            var s = `
+            <a href="/product/${product._id}">
+                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-image" style="max-height: 200px; overflow: hidden;">
+                            <img src="${product.image}">
+                            <span class="card-title">${product.name}</span>
+                        </div>
+                        <div class="card-content" style="padding: 16px;">
+                            <p style="color: #000;">${product.description}</p>
+                        </div>
+                        <div class="card-action" style="color: #000; padding-bottom: 12px; padding-top: 10px; margin: 0; padding-right: 12px; padding-left: 12px;">
+                            <p style="display: inline; line-height: 36px;">€${product.price}</p>
+                            <form action="/basket/add" method="post" style="display: inline">
+                                <input type="hidden" name="productId" value="${product._id}" />
+                                <input type="hidden" name="quantity" value="1" />
+                                <button class="btn teal waves-effect waves-light right">Add to basket</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </a>            
+            `
+            return s;
         }
 
         function renderCommunityCard(community, parentElement) {
             var s = `
-            <a href="/community/${community.id}">
+            <a href="/community/${community._id}">
                 <div class="col s12 m4">
                     <div class="card">
                         <div class="card-image" style="max-height: 200px; overflow: hidden;">
@@ -94,8 +117,11 @@
             $('#search-product').on("keyup paste", (e) => {
                 var userSearch = $("#search-product").val();
                 $.post("/product/search", { 'searchTerm': userSearch }, (products) => {
-                    $("#product-search-results").text("number of results: " + products.length);
-                    console.log(products)
+                    result = "";
+                    $("#product-search-results").html("");
+                    products.forEach((product) => {
+                        $("#product-search-results").append(renderProductCard(product, $(this)));
+                    });
                 }).fail(() => {
                     Materialize.toast("search error!");
                     console.log("search error!");
@@ -104,9 +130,7 @@
             $('#search-community').on("keyup paste", (e) => {
                 var userSearch = $("#search-community").val();
                 $.post("/community/search", {searchTerm: userSearch}, (communities) => {
-                    // $("#community-search-results").text(JSON.stringify(communities));
                     result = "";
-                    console.log(communities);
                     $("#community-search-results").html("");
                     communities.forEach((community) => {
                         $("#community-search-results").append(renderCommunityCard(community, $(this)));
