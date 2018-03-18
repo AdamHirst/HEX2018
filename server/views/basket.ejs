@@ -1,6 +1,9 @@
-<%- include('../head', { title: "Craft for a Cause" }); %>
-<%- include('../nav', { user: user }); %>
+<%- include('head', { title: "Craft for a Cause" }); %>
+<%- include('nav', { user: user }); %>
 
+<div class="container">
+
+<h2>Your basket</h2>
 <ul class="collection">
   <% user.basket.forEach(function(basketItem) { %>
     <li class="collection-item avatar">
@@ -14,8 +17,10 @@
   <% }) %>
 </ul>
 
-<h2>Total: €<%= user.basketTotal %></h2>
+<p style="font-weight: 700; display: inline;">Total: €<%= user.basketTotal %></p>
 <a href="#" class="btn teal waves-effect waves-light right">Checkout</a>
 
-<%- include('../page_scripts'); %>
-<%- include('../foot'); %>
+</div>
+
+<%- include('page_scripts'); %>
+<%- include('foot'); %>
