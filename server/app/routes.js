@@ -181,7 +181,11 @@ module.exports = (app, passport, db, twilio) => {
   })
 
   app.get('/basket', auth, (req, res) => {
-    res.render('basket', { user: req.user });
+    db.model.User.findOne( { _id: req.user._id } )
+    .populate('basket.product')
+    .exec((err,user)=>{
+      res.render('basket', { 'user': user });
+    })
   })
 
 }
