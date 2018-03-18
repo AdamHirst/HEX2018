@@ -20,6 +20,20 @@ module.exports = new require('mongoose').Schema({
     ref: "User",
     required: true
   },
+  address: {
+    postcode: {
+      type: String,
+      required: true
+    },
+    streetName: {
+      type: String,
+      required: true
+    },
+    streetNo: {
+      type: String,
+      require: true
+    }
+  },
   status: {
     type: String,
     enum: [

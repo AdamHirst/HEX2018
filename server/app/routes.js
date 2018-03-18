@@ -146,7 +146,7 @@ module.exports = (app, passport, db, twilio) => {
   app.get('/community/:id', (req, res) => {
     community.get(req.params.id, (err, target) => {
       if(err){ res.send(err); return }
-      res.render('community',{
+      res.render('community/view',{
         'user': req.user,
         community: target
        })
@@ -185,6 +185,14 @@ module.exports = (app, passport, db, twilio) => {
     .populate('basket.product')
     .exec((err,user)=>{
       res.render('basket', { 'user': user });
+    })
+  })
+
+  app.get('/checkout', auth, (req,res) => {
+    db.model.User.findOne( { _id: req.user._id } )
+    .populate('basket.product')
+    .exec((err,user)=>{
+      res.render('checkout', { 'user': user });
     })
   })
 
