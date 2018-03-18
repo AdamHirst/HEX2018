@@ -1,0 +1,21 @@
+<%- include('../head', { title: "Craft for a Cause" }); %>
+<%- include('../nav', { user: user }); %>
+
+<ul class="collection">
+  <% user.basket.forEach(function(basketItem) { %>
+    <li class="collection-item avatar">
+      <img src="<%= basketItem.product.image %>" alt="" class="circle">
+      <span class="title"><%= basketItem.product.name %></span>
+      <p>€<%= basketItem.product.price %><br>
+         <%= basketItem.product.description %>
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">close</i></a>
+    </li>
+  <% }) %>
+</ul>
+
+<h2>Total: €<%= user.basketTotal %></h2>
+<a href="#" class="btn teal waves-effect waves-light right">Checkout</a>
+
+<%- include('../page_scripts'); %>
+<%- include('../foot'); %>

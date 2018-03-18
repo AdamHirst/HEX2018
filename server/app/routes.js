@@ -176,11 +176,12 @@ module.exports = (app, passport, db, twilio) => {
   app.post('/basket/add', auth, (req, res) => {
     basket.add(req.user, req.body.productId, req.body.quantity, err => {
       if(err) { res.send(err); return; };
-      res.send({
-        message: "Added"
-      })
+      res.redirect('/');
     })
   })
 
-  //app.post('/basket/complete')
+  app.get('/basket', auth, (req, res) => {
+    res.render('basket', { user: req.user });
+  })
+
 }
