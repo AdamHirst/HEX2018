@@ -45,21 +45,23 @@ module.exports = (db, twilio) => {
               streetNo: formData.streetNo
             }
           }
-          twilio.sendProductOrderNotice(temp);
           orders.push(temp);
+        }
 
-          db.model.User.update( { _id: user._id }, { $set : { basket: [], basketTotal:0 }}, err => {
-            if(err){ cb(err); return }
-            try {
-              db.model.Order.insertMany(orders);
-              cb(null)
-            } catch(e) {
-              cb(e)
-            }
+        db.model.User.update( { _id: user._id }, { $set : { basket: [], basketTotal:0 }}, err => {
+          if(err){ cb(err); return }
+          try {
+            db.model.Order.insertMany(orders, err => {
+              if(err){ cb(err); return }
+              twilio.sendProductOrderNotice(temp);
+            });
+            cb(null)
+          } catch(e) {
+            cb(e)
+          }
 
-          })
+        })
 
-        };
 
 
       })
