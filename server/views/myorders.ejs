@@ -1,0 +1,21 @@
+<%- include('head', { title: "Craft for a Cause" }); %>
+<%- include('nav', { user: user }); %>
+
+<div class="container">
+
+<h2>Your orders</h2>
+<ul class="collection">
+  <% orders.forEach(function(item) { %>
+    <li class="collection-item avatar">
+      <img src="<%= item.product.image %>" alt="" class="circle">
+      <span class="title">Ordered <%= item.product.name %> on <%= item.timeStamp.getDate() %>/<%= item.timeStamp.getMonth() %>/<%= item.timeStamp.getYear() %></span>
+      <p>€<%= item.product.price %><br>
+         Status: <%= item.status %>
+      </p>
+    </li>
+  <% }) %>
+</ul>
+</div>
+
+<%- include('page_scripts'); %>
+<%- include('foot'); %>
