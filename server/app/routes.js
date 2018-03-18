@@ -196,4 +196,11 @@ module.exports = (app, passport, db, twilio) => {
     })
   })
 
+  app.post('/checkout/complete', auth, (req, res) => {
+    basket.complete(req.user, req.body, err => {
+      if(err){ res.send(err); return }
+      res.redirect('/myorders');
+    })
+  })
+
 }
