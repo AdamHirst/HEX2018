@@ -17,7 +17,13 @@ module.exports = (db) => {
       })
     },
     search: (searchTerm, cb) => {
-      db.model.Community.find({ name: { "$regex": searchTerm, "$options": "i" } }, (err, results) => {
+      db.model.Community.find({} , (err, allCommunites) => {
+        let results = [];
+        allCommunites.forEach( current => {
+          if(current.name.toLowerCase().includes(searchTerm.toLowerCase())){
+            results.push(current);
+          }
+        })
         if(err){ cb(err); return }
         cb(null, results)
       })
