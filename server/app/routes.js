@@ -212,7 +212,20 @@ module.exports = (app, passport, db, twilio) => {
   })
 
   app.get('/myorders', auth, (req, res) => {
-
+    db.model.User.findOne({ _id: req.user._id }, (err,user) => {
+      if(err){ res.send(err); return }
+      db.model.Order.find( { customer: user._id })
+      .populate({
+        path: "product",
+        select: "name price image description"
+      })
+      .exec((err, orders) => {
+        res.render('myorders', {
+          'user':user,
+          'orders':orders
+        })
+      })
+    });
   })
 
 }
