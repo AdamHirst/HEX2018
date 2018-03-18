@@ -66,6 +66,17 @@
 
 
     </script>
+    <% if (community.products.length > 0) { %>
+    <div class="section" style="margin-top:-13px;">
+        <h4>Featured products</h4>
+
+        <div class="row">
+          <% for (var i = 0; i < community.products.length; i++) { %>
+          <%- include('../card', { id: community.products[i]._id, image: community.products[i].image, title: community.products[i].title, description: community.products[i].description, price: community.products[i].price }) %>
+          <% } %>
+        </div>
+    </div>
+    <% } %>
   </div>
 </div>
 <%- include('../foot'); %>
