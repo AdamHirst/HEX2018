@@ -177,7 +177,7 @@ module.exports = (app, passport, db, twilio) => {
   app.post('/basket/add', auth, (req, res) => {
     basket.add(req.user, req.body.productId, req.body.quantity, err => {
       if(err) { res.send(err); return; };
-      res.redirect('/');
+      res.redirect('/basket');
     })
   })
 
