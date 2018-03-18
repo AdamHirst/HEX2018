@@ -17,7 +17,7 @@
           <li><a href="/register">Register</a></li>
         <% } else { %>
           <li class="link"><a href="/logout">Logout (<%= user.email %>)</a></li>
-          <li class="link"><a href="#">Basket <% console.log (user); if (user.basketTotal) { %>(€<%= user.basketTotal %>) <% } %></a></li>
+          <li class="link"><a href="/basket">Basket <% console.log (user); if (user.basketTotal) { %>(€<%= user.basketTotal %>) <% } %></a></li>
         <% } %>
       </ul>
     </div>
