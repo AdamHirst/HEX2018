@@ -4,7 +4,7 @@ module.exports = () => {
   return {
     makePayment: (amount, stripeToken, user, cb) => {
       const charge = {
-  	    amount: amount,
+  	    amount: amount*100, // to convert to eurocents
   	    currency: 'eur',
   	    card: stripeToken,
         customer: "cus_CVw5rJOkIhsq8U"
