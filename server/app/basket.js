@@ -31,6 +31,7 @@ module.exports = (db, twilio) => {
           let newID = user.email + Date.now() + current.product;
           let salt = bcrypt.genSaltSync(5);
           newID = bcrypt.hashSync(newID, salt);
+          newID = newID.substring(1,10);
           let temp = {
             orderNumber: newID,
             quantity: current.quantity,
@@ -45,14 +46,19 @@ module.exports = (db, twilio) => {
           }
           twilio.sendProductOrderNotice(temp);
           orders.push(temp);
+
+          db.model.User.update( { _id: user._id }, { $set : { basket: [], basketTotal:0 }})
+
+          try {
+            db.model.Order.insertMany(orders);
+            cb(null)
+          } catch(e) {
+            cb(e)
+          }
+
         };
 
-        try {
-          db.model.Order.insertMany(orders);
-          cb(null)
-        } catch(e) {
-          cb(e)
-        }
+
       })
     }
   }
