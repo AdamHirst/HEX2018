@@ -5,6 +5,7 @@ module.exports = (app, passport, db, twilio) => {
   const user      = require('./user.js')(db);
   const community = require('./community.js')(db);
   const basket    = require('./basket.js')(db, twilio);
+  const payment   = require('./payment.js')();
 
   function auth(req, res, next) {
     if (req.user) {
@@ -176,7 +177,7 @@ module.exports = (app, passport, db, twilio) => {
   app.post('/basket/add', auth, (req, res) => {
     basket.add(req.user, req.body.productId, req.body.quantity, err => {
       if(err) { res.send(err); return; };
-      res.redirect('/');
+      res.redirect('/basket');
     })
   })
 
@@ -197,10 +198,21 @@ module.exports = (app, passport, db, twilio) => {
   })
 
   app.post('/checkout/complete', auth, (req, res) => {
-    basket.complete(req.user, req.body, err => {
+    db.model.User.findOne({ _id: req.user._id }, (err,user) => {
       if(err){ res.send(err); return }
-      res.redirect('/myorders');
+      let amount = user.basketTotal
+      basket.complete(req.user, req.body, err => {
+        if(err){ res.send(err); return }
+        payment.makePayment(amount, req.body.stripeToken, (err) => {
+          if(err){ res.send(err); return }
+          res.redirect('/myorders');
+        })
+      })
     })
+  })
+
+  app.get('/myorders', auth, (req, res) => {
+
   })
 
 }
