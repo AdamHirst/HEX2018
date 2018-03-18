@@ -146,7 +146,7 @@ module.exports = (app, passport, db, twilio) => {
   app.get('/community/:id', (req, res) => {
     community.get(req.params.id, (err, target) => {
       if(err){ res.send(err); return }
-      res.render('community',{
+      res.render('community/view',{
         'user': req.user,
         community: target
        })
