@@ -23,9 +23,9 @@ module.exports = (db, twilio) => {
 
     },
     complete: (userS, formData, cb) => {
+      let orders = []
       db.model.User.findOne({ _id: userS._id }, (err, user) => {
         if (err) { cb(err); console.log(err); return; }
-        let orders = [];
         let status = [];
         for(let i=0; i<user.basket.length;i++){
           current = user.basket[i];
@@ -53,7 +53,9 @@ module.exports = (db, twilio) => {
           try {
             db.model.Order.insertMany(orders, err => {
               if(err){ cb(err); return }
-              twilio.sendProductOrderNotice(temp);
+              orders.forEach(current => {
+                twilio.sendProductOrderNotice(current);
+              })
             });
             cb(null)
           } catch(e) {
