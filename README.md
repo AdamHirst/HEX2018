@@ -1,7 +1,3 @@
-# HEX2018
-HEX
-https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/000/616/312/datas/gallery.jpg
-
 <div align="center"><h1>Craft for a Cause</h1></div>
 <div align="center">Tackling unemployment and poverty through the creation of quality crafts<br>Winner of the Twilio prize @ HEX 2018, Eindhoven, the Netherlands</div>
 
